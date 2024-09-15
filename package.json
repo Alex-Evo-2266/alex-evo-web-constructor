@@ -12,9 +12,12 @@
     "build-storybook": "storybook build",
     "pub": "npm run build && npm version patch && npm publish"
   },
-  "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+  "peerDependencies": {
+    "alex-evo-sh-ui-kit": "*",
+    "lucide-react": "*",
+    "react": "*",
+    "react-dom": "*",
+    "react-router-dom": "*"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.9.0",
@@ -30,11 +33,16 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
+    "alex-evo-sh-ui-kit": "^1.0.20",
     "eslint": "^9.9.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
     "eslint-plugin-storybook": "^0.8.0",
     "globals": "^15.9.0",
+    "lucide-react": "^0.441.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2",
     "storybook": "^8.3.0",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
@@ -44,5 +52,8 @@
     "extends": [
       "plugin:storybook/recommended"
     ]
+  },
+  "dependencies": {
+    "sass": "^1.78.0"
   }
 }
