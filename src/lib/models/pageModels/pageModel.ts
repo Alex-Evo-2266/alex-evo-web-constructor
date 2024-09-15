@@ -142,7 +142,12 @@ export interface IGridLayout extends BaseComponent{
 	value: IComponents[]
 }
 
-export type IComponents = ITextField | ITable | ICard | IButton | IColumns | IList | IKeyValue | IDivider | IFlexContainer | IGridLayout
+export interface IPanel extends BaseComponent{
+	type: TypeComponent.PANEL,
+	value: IComponents
+}
+
+export type IComponents = ITextField | ITable | ICard | IButton | IColumns | IList | IKeyValue | IDivider | IFlexContainer | IGridLayout | IPanel
 
 export interface IPage{
 	page: IComponents[]

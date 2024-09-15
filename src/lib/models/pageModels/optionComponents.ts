@@ -7,4 +7,6 @@ export interface IOption{
 	width?: number
 	height?: number
 	pozition?: "left" | "right" | "center"
+	margin?: string
+	padding?: string
 }

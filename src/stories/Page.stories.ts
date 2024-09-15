@@ -216,4 +216,24 @@ export const Grid: Story = {
   },
 };
 
-
+export const Card: Story = {
+  args: {
+   data:{
+    type: TypeComponent.PANEL,
+    value:{
+      type: TypeComponent.COLUMNS,
+      count: 2,
+      value:[{
+        indexCol: 0,
+        value:{
+          type: TypeComponent.LIST,
+          value:[{
+            type: TypeComponent.TEXT,
+            value: "srhtdrhb hjd ht rsehdrthjdrth tjhdrtjdr jrtjrdtj rtjtrjdrtjrdtj rtjdrtj rtjdrjrtj drtj"
+          }]
+        }
+      }]
+    }
+   }
+  },
+};

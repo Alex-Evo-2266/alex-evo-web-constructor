@@ -11,6 +11,7 @@ import { Divider } from "../Divider/Divider"
 import { Card } from "../Card/Card"
 import { FlexContainer } from "../FlexContainer/FlexContainer"
 import { GridLayout } from "../gridLayout/gridLayout"
+import { Panel } from '../Panel/Panel'
 
 export interface ComponentProp{
     data: IComponents
@@ -39,6 +40,8 @@ export const Component: React.FC<ComponentProp> = ({data}) => {
             <FlexContainer {...{...data}}/>:
             (data.type === TypeComponent.GRID_LAYOUT)?
             <GridLayout {...{...data}}/>:
+            (data.type === TypeComponent.PANEL)?
+            <Panel {...{...data}}/>:
             JSON.stringify(data)
         }
         </div>
