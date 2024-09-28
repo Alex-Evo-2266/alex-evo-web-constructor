@@ -1,4 +1,4 @@
-import { BaseText } from 'alex-evo-sh-ui-kit'
+import { Typography } from 'alex-evo-sh-ui-kit'
 import { IKeyValue } from '../../models/pageModels/pageModel'
 import { Component } from '../Component/Component'
 import './KeyValue.scss'
@@ -8,7 +8,8 @@ export const KeyValue:React.FC<IKeyValue> = (data) => {
         <div className='alex-evo-web-constructor-key-value'>
             <div className='alex-evo-web-constructor-key-value-key'>
                 <div className='alex-evo-web-constructor-key-value-key-contant'>
-                    <BaseText
+                    <Typography
+                    type='body'
                     style={{
                         color: data.option?.color, 
                         backgroundColor: data.option?.backgroundColor, 
@@ -25,7 +26,7 @@ export const KeyValue:React.FC<IKeyValue> = (data) => {
                     }} 
                     >
                         {data.label}
-                    </BaseText>
+                    </Typography>
                 </div>
                 
             </div>

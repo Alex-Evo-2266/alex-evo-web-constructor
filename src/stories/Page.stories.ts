@@ -15,7 +15,6 @@ const meta = {
   argTypes: {
   },
   args: {
-    
   },
 } satisfies Meta<typeof Page>;
 
@@ -82,6 +81,9 @@ export const Base: Story = {
             label: "test-key-2",
             value: {
               type: TypeComponent.TEXT,
+              option:{
+                pozition: 'center',
+              },
               value: "test-value-2"
             }
           },
@@ -128,6 +130,9 @@ export const Base: Story = {
                 label: "test-key-2",
                 value: {
                   type: TypeComponent.TEXT,
+                  option:{
+                    pozition: 'center',
+                  },
                   value: "test-value-2"
                 }
               },
@@ -192,6 +197,9 @@ export const Grid: Story = {
     },{
       type: TypeComponent.CARD,
       label: "Test",
+      option:{
+        width: 300
+      },
       action: {
         action_type: ActionType.NONE
       }
@@ -231,6 +239,50 @@ export const Card: Story = {
             type: TypeComponent.TEXT,
             value: "srhtdrhb hjd ht rsehdrthjdrth tjhdrtjdr jrtjrdtj rtjtrjdrtjrdtj rtjdrtj rtjdrjrtj drtj"
           }]
+        }
+      },{
+        indexCol: 1,
+        value:{
+          type: TypeComponent.SLIDER,
+          value: 20,
+          action:{
+            action_type: ActionType.GET_REQUEST,
+            action_target: "test/url",
+            query:{
+              test: "test"
+            }
+          }
+        }
+      },{
+        indexCol: 1,
+        value:{
+          type: TypeComponent.SELECT,
+          value: "20",
+          items:["20", "ethr", "sgrdth"],
+          action:{
+            action_type: ActionType.GET_REQUEST,
+            action_target: "test/url2"
+          }
+        }
+      },{
+        indexCol: 1,
+        value:{
+          type: TypeComponent.SWITCH,
+          value: true,
+          action:{
+            action_type: ActionType.GET_REQUEST,
+            action_target: "test/url2"
+          }
+        }
+      },{
+        indexCol: 1,
+        value:{
+          type: TypeComponent.SEND_TEXT,
+          value: "test",
+          action:{
+            action_type: ActionType.GET_REQUEST,
+            action_target: "test/url2"
+          }
         }
       }]
     }

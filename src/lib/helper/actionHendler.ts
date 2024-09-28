@@ -1,7 +1,15 @@
 import { useContext } from "react";
-import { ActionType, BaseAction } from "../models/pageModels/pageModel";
+import { ActionFetchTarget, ActionType, BaseAction } from "../models/pageModels/pageModel";
 import { WebConstructorContext } from "../blocks/WebConstructor";
 
+type Quety = {
+    [key: string]: string
+}
+
+function addQuery(url: string, quety: Quety = {}){
+    return Object.entries(quety)
+        .reduce((prev, current, index)=>`${prev}${!index?"?":"&"}${current[0]}=${current[1]}`, url)
+}
 
 export const useAction = () => {
 
@@ -11,7 +19,7 @@ export const useAction = () => {
         if(action.action_type === ActionType.GET_REQUEST)
         {
             if(context.fetchFunction)
-                context.fetchFunction(action.action_target, "GET", null, {})
+                context.fetchFunction(addQuery(action.action_target, action.query ?? {}), "GET", null, {})
             else
                 new Error("fetch function not found")
         }
@@ -27,6 +35,16 @@ export const useAction = () => {
         }
     }
 
-    return {actionHendler}
+    function changeHandler(action: ActionFetchTarget, value: string | number){
+        if(action.action_type === ActionType.GET_REQUEST)
+        {
+            if(context.fetchFunction)
+                context.fetchFunction(addQuery(action.action_target, {...action.query, value: String(value)}), "GET", null, {})
+            else
+                new Error("fetch function not found")
+        }
+    }
+
+    return {actionHendler, changeHandler}
 }
 

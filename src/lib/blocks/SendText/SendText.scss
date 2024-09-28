@@ -1,0 +1,21 @@
+.web-constructor-send-text{
+    display: flex;
+    button{
+        width: 150px;
+    }
+    .input-field{
+        flex: 100%;
+        margin-right: 15px;
+    }
+    &.block{
+        display: block;
+        button{
+            margin: 5px;
+            width: calc(100% - 10px);
+        }
+        .input-field{
+            flex: 100%;
+            margin-right: 0;
+        }
+    }
+}

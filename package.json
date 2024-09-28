@@ -52,7 +52,7 @@
     ]
   },
   "dependencies": {
-    "alex-evo-sh-ui-kit": "^1.0.20",
+    "alex-evo-sh-ui-kit": "^1.0.22",
     "sass": "^1.78.0"
   }
 }

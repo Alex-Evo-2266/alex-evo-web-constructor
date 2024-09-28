@@ -32,16 +32,24 @@ export interface ActionTemplate{
 	action_target?: string
 }
 
-export interface ActionTtarget extends ActionTemplate{
-	action_type: ActionType.DIALOG | ActionType.GET_REQUEST | ActionType.LINK | ActionType.MENU
+export interface ActionTarget extends ActionTemplate{
+	action_type: ActionType.DIALOG | ActionType.LINK | ActionType.MENU
 	action_target: string
+}
+
+export interface ActionFetchTarget extends ActionTemplate{
+	action_type: ActionType.GET_REQUEST
+	action_target: string
+	query?: {
+		[key:string]:string
+	}
 }
 
 export interface ActionNoTarget extends ActionTemplate{
 	action_type: ActionType.NONE
 }
 
-export type BaseAction = ActionTtarget | ActionNoTarget
+export type BaseAction = ActionTarget | ActionNoTarget | ActionFetchTarget
 
 //----------------content----------------
 
@@ -147,7 +155,35 @@ export interface IPanel extends BaseComponent{
 	value: IComponents
 }
 
-export type IComponents = ITextField | ITable | ICard | IButton | IColumns | IList | IKeyValue | IDivider | IFlexContainer | IGridLayout | IPanel
+export interface FetchComponent extends ComponentAction{
+	action: ActionFetchTarget
+}
+
+export interface ISlider extends FetchComponent{
+	type: TypeComponent.SLIDER,
+	value: number,
+	min?: number,
+	max?: number,
+	step?: number
+}
+
+export interface ISelect extends FetchComponent{
+	type: TypeComponent.SELECT,
+	value: string,
+	items: (string | {label:string, data:string})[]
+}
+
+export interface ISwitch extends FetchComponent{
+	type: TypeComponent.SWITCH,
+	value: boolean
+}
+
+export interface ISendText extends FetchComponent{
+	type: TypeComponent.SEND_TEXT,
+	value?: string
+}
+
+export type IComponents = ITextField | ITable | ICard | IButton | IColumns | IList | IKeyValue | IDivider | IFlexContainer | IGridLayout | IPanel | ISlider | ISelect | ISwitch | ISendText
 
 export interface IPage{
 	page: IComponents[]

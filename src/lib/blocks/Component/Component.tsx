@@ -12,6 +12,10 @@ import { Card } from "../Card/Card"
 import { FlexContainer } from "../FlexContainer/FlexContainer"
 import { GridLayout } from "../gridLayout/gridLayout"
 import { Panel } from '../Panel/Panel'
+import { Slider } from '../Slider/Slider'
+import { Select } from '../Select/Select'
+import { Switch } from '../Switch/Switch'
+import { SendText } from '../SendText/SendText'
 
 export interface ComponentProp{
     data: IComponents
@@ -42,6 +46,14 @@ export const Component: React.FC<ComponentProp> = ({data}) => {
             <GridLayout {...{...data}}/>:
             (data.type === TypeComponent.PANEL)?
             <Panel {...{...data}}/>:
+            (data.type === TypeComponent.SLIDER)?
+            <Slider {...{...data}}/>:
+            (data.type === TypeComponent.SELECT)?
+            <Select {...{...data}}/>:
+            (data.type === TypeComponent.SWITCH)?
+            <Switch {...{...data}}/>:
+            (data.type === TypeComponent.SEND_TEXT)?
+            <SendText {...{...data}}/>:
             JSON.stringify(data)
         }
         </div>

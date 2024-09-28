@@ -8,7 +8,16 @@ export const Card:React.FC<ICard> = (data) => {
     const {actionHendler} = useAction()
 
     return(
-        <CD header={data.label} imgSrc={data.img} onClick={()=>actionHendler(data.action)}>
+        <CD 
+            style={{
+                width: data.option?.width && `${data.option?.width}px`,
+                height: data.option?.height && `${data.option?.height}px`,
+                backgroundColor: data.option?.backgroundColor,
+                color: data.option?.color
+            }} 
+            header={data.label} 
+            imgSrc={data.img} 
+            onClick={()=>actionHendler(data.action)}>
             {
                 (data.value)?
                 <Component data={data.value}/>:
