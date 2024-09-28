@@ -6,12 +6,15 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "pub": "npm run build && npm version patch && npm publish"
   },
+  "main": "./dist/alex-evo-sh-ui-kit.umd.js",
+  "module": "./dist/alex-evo-sh-ui-kit.es.js",
+  "types": "./dist/index.d.ts",
   "peerDependencies": {
     "lucide-react": "*",
     "react": "*",
@@ -53,6 +56,8 @@
   },
   "dependencies": {
     "alex-evo-sh-ui-kit": "^1.0.22",
-    "sass": "^1.78.0"
+    "sass": "^1.78.0",
+    "vite-plugin-dts": "^4.2.2",
+    "vite-plugin-lib-inject-css": "^2.1.1"
   }
 }

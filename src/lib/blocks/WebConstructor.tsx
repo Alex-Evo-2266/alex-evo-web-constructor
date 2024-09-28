@@ -6,13 +6,8 @@ import { IDialog } from '../models/dialog/dialog'
 import { Dialog } from './Dialog/Dialog'
 import { Menu } from './Menu/Menu'
 import { IMenu, IMenuProps } from '../models/menu/menu'
+import { FetchFunction } from '../models'
 
-type FetchFunction = (
-    url:string, 
-	method?: string,
-	body?:BodyInit | null,
-	headers?: HeadersInit) => void
-    
 interface IWebConstructorContext{
     fetchFunction?: FetchFunction,
     showDialog:(nameDialog:string)=>void
