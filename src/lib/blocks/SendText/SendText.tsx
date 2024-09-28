@@ -22,7 +22,7 @@ export const SendText:React.FC<ISendText> = (props) => {
         changeHandler(props.action, text)
     },[text, changeHandler])
 
-    const resize = (e:any) =>{
+    const resize = () =>{
         if(!sendTextContainer.current)return;
         const rects = sendTextContainer.current.getClientRects()[0]
         if(rects.width > 300)
@@ -32,9 +32,10 @@ export const SendText:React.FC<ISendText> = (props) => {
     }
 
     useEffect(()=>{
+        resize()
         window.addEventListener('resize', resize)
         return () => window.removeEventListener('resize', resize)
-    })
+    },[])
 
     return(
         <div style={{}} className={`web-constructor-send-text ${isBlock?"block":""}`} ref={sendTextContainer}>

@@ -23,6 +23,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Base: Story = {
   args: {
+    dialogs:[],
     data:{
       name: "d",
       type: TypeComponent.COLUMNS,
@@ -186,6 +187,7 @@ export const Base: Story = {
 
 export const Grid: Story = {
   args: {
+    dialogs:[],
    data:{
     type: TypeComponent.GRID_LAYOUT,
     value:[{
@@ -226,6 +228,95 @@ export const Grid: Story = {
 
 export const Card: Story = {
   args: {
+    menu:[{
+      name:"test-menu",
+      components:[{
+        label: "t1",
+        subItems:[{
+          label: "s1",
+          action:{
+            action_type: ActionType.DIALOG,
+            action_target: "test-dialog"
+          }
+        }]
+      },{
+        label: "t2"
+      }]
+    }],
+    dialogs:[{
+      name:"test-dialog",
+      title: "Test dialog",
+      components:[{
+        type: TypeComponent.LIST,
+        name: "list",
+        value: [
+          {
+            type:TypeComponent.KEY_VALUE,
+            label: "test-key-1",
+            value: {
+              type: TypeComponent.TEXT,
+              value: "test-value-1"
+            }
+          },
+          {
+            type: TypeComponent.DIVIDER,
+          },
+          {
+            type:TypeComponent.KEY_VALUE,
+            label: "test-key-2",
+            value: {
+              type: TypeComponent.TEXT,
+              option:{
+                pozition: 'center',
+              },
+              value: "test-value-2"
+            }
+          },
+          {
+            type:TypeComponent.KEY_VALUE,
+            label: "test-key-3",
+            value: {
+              type: TypeComponent.TEXT,
+              value: "test-value-3"
+            }
+          },
+          {
+            type: TypeComponent.FLEX_CONTAINER,
+            option:{
+              pozition: 'right'
+            },
+            value:[{
+              type: TypeComponent.BUTTON,
+              label: "test btn",
+              name: "test btn",
+              option:{
+                pozition: "center"
+              },
+              action: {
+                action_type: ActionType.GET_REQUEST,
+                action_target: "/api/test",
+                close_dialog: true
+              }
+            },
+            {
+              type: TypeComponent.BUTTON,
+              label: "test btn",
+              name: "test btn",
+              option:{
+                backgroundColor: "red",
+                borderRadius: 4,
+                color: "#fff"
+              },
+              action: {
+                action_type: ActionType.SYSTEM,
+                action_target: "add dev",
+                arg:["sgsdg", "sgh", {sdg: "dsg"}]
+              }
+            }]
+          }
+        ]
+      }]
+    }],
    data:{
     type: TypeComponent.PANEL,
     value:{
@@ -282,6 +373,28 @@ export const Card: Story = {
           action:{
             action_type: ActionType.GET_REQUEST,
             action_target: "test/url2"
+          }
+        }
+      },
+      {
+        indexCol: 1,
+        value:{
+          type: TypeComponent.BUTTON,
+          label: "test dialog",
+          action:{
+            action_type: ActionType.DIALOG,
+            action_target: "test-dialog"
+          }
+        }
+      },
+      {
+        indexCol: 1,
+        value:{
+          type: TypeComponent.BUTTON,
+          label: "test menu",
+          action:{
+            action_type: ActionType.MENU,
+            action_target: "test-menu"
           }
         }
       }]

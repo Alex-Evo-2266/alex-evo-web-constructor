@@ -8,6 +8,7 @@ export enum ActionType {
 	DIALOG = "DIALOG",
 	NONE = "NONE",
 	MENU = "MENU",
+	SYSTEM = "SYSTEM"
 }
 
 export enum ControlItemType {
@@ -30,6 +31,7 @@ interface BaseComponent
 export interface ActionTemplate{
 	action_type: ActionType
 	action_target?: string
+	close_dialog?: boolean
 }
 
 export interface ActionTarget extends ActionTemplate{
@@ -45,11 +47,19 @@ export interface ActionFetchTarget extends ActionTemplate{
 	}
 }
 
+export interface ActionSystemTarget extends ActionTemplate{
+	action_type: ActionType.SYSTEM
+	action_target: string
+	arg?: ({
+		[key:string]:string
+	} | string)[]
+}
+
 export interface ActionNoTarget extends ActionTemplate{
 	action_type: ActionType.NONE
 }
 
-export type BaseAction = ActionTarget | ActionNoTarget | ActionFetchTarget
+export type BaseAction = ActionTarget | ActionNoTarget | ActionFetchTarget | ActionSystemTarget
 
 //----------------content----------------
 
