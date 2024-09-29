@@ -11,8 +11,8 @@ import { FetchFunction } from '../models'
 interface IWebConstructorContext{
     fetchFunction?: FetchFunction,
     showDialog:(nameDialog:string)=>void
-    containerModal?: HTMLElement,
-    containerMenu?: HTMLElement,
+    containerModal?: HTMLElement | null,
+    containerMenu?: HTMLElement | null,
     screenSize: ScreenSize,
     showError?: (title: string, message: string)=>void
     showMenu?: (name:string ,x:number, y:number)=>void
@@ -21,19 +21,19 @@ interface IWebConstructorContext{
 
 interface IWebConstructor{
     data: IComponents,
-    dialogs: IDialog[],
-    menu: IMenu[],
+    dialogs?: IDialog[],
+    menu?: IMenu[],
     fetchFunction?: FetchFunction,
-    containerModal?: HTMLElement,
-    containerMenu?: HTMLElement,
-    screenSize: ScreenSize,
+    containerModal?: HTMLElement | null,
+    containerMenu?: HTMLElement | null,
+    screenSize?: ScreenSize,
     showError?: (title: string, message: string)=>void
     systemCall?: (name: string, ...arg:any)=>void
 }
 
 export const WebConstructorContext = createContext<IWebConstructorContext>({screenSize: ScreenSize.STANDART, showDialog:(_)=>{}})
 
-export const WebConstructor:React.FC<IWebConstructor> = ({data, fetchFunction, containerMenu, containerModal, screenSize, dialogs, menu, showError, systemCall}) => {
+export const WebConstructor:React.FC<IWebConstructor> = ({data, fetchFunction, containerMenu, containerModal, screenSize = ScreenSize.STANDART, dialogs = [], menu = [], showError, systemCall}) => {
 
     const [dialogsArr, setDialogs] = useState<IDialog[]>([])
     const [_menu, setMenu] = useState<IMenuProps>({

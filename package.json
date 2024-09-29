@@ -1,26 +1,37 @@
 {
   "name": "alex-evo-web-constructor",
-  "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "pub": "npm run build && npm version patch && npm publish"
   },
-  "main": "./dist/alex-evo-sh-ui-kit.umd.js",
-  "module": "./dist/alex-evo-sh-ui-kit.es.js",
+  "main": "./dist/alex-evo-web-constructor.umd.js",
+  "module": "./dist/alex-evo-web-constructor.es.js",
   "types": "./dist/index.d.ts",
+  "stylelint": {},
+  "exports": {
+    ".": {
+      "import": "./dist/alex-evo-web-constructor.es.js",
+      "require": "./dist/alex-evo-web-constructor.umd.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "peerDependencies": {
     "lucide-react": "*",
     "react": "*",
     "react-dom": "*",
-    "react-router-dom": "*"
+    "react-router-dom": "*",
+    "alex-evo-sh-ui-kit": "^1.0.22"
   },
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "@chromatic-com/storybook": "^1.9.0",
     "@eslint/js": "^9.9.0",
@@ -47,7 +58,10 @@
     "storybook": "^8.3.0",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
-    "vite": "^5.4.1"
+    "vite": "^5.4.1",
+    "sass": "^1.78.0",
+    "vite-plugin-dts": "^4.2.2",
+    "vite-plugin-lib-inject-css": "^2.1.1"
   },
   "eslintConfig": {
     "extends": [
@@ -55,9 +69,5 @@
     ]
   },
   "dependencies": {
-    "alex-evo-sh-ui-kit": "^1.0.22",
-    "sass": "^1.78.0",
-    "vite-plugin-dts": "^4.2.2",
-    "vite-plugin-lib-inject-css": "^2.1.1"
   }
 }

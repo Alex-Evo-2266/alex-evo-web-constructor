@@ -18,9 +18,10 @@ export const Menu:React.FC<MenuProps> = ({data, hideMenu}) => {
     const getIcon = (_?: string) => undefined
 
     const _actionHendler = useCallback((action?:BaseAction) => {
-        if(!action)return;
-        return () => actionHendler(action)
-    },[])
+        if(action)
+            actionHendler(action)
+        hideMenu()
+    },[hideMenu, actionHendler])
 
     const mapMenuSubItem = (data?: IMenuSubItemConstructor[]):IMenuSubItem[] | undefined => {
         if(!data) return 
@@ -28,7 +29,7 @@ export const Menu:React.FC<MenuProps> = ({data, hideMenu}) => {
             title: item.label,
             icon: getIcon(item.icon),
             activated: item.activated,
-            onClick: _actionHendler(item.action),
+            onClick: ()=>_actionHendler(item.action),
         }))
     }
 
@@ -37,7 +38,7 @@ export const Menu:React.FC<MenuProps> = ({data, hideMenu}) => {
             title: item.label,
             icon: getIcon(item.icon),
             activated: item.activated,
-            onClick: _actionHendler(item.action),
+            onClick: ()=>_actionHendler(item.action),
             subItems: mapMenuSubItem(item.subItems)
         }))
     }
