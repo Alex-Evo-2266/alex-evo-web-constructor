@@ -27,7 +27,7 @@
     "react": "*",
     "react-dom": "*",
     "react-router-dom": "*",
-    "alex-evo-sh-ui-kit": "^1.0.22"
+    "alex-evo-sh-ui-kit": "*"
   },
   "files": [
     "dist"
