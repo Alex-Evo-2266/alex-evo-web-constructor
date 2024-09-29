@@ -142,7 +142,7 @@ export interface IList extends BaseComponent {
 export interface IKeyValue extends BaseComponent {
 	type: TypeComponent.KEY_VALUE,
 	label: string
-	value: IComponents
+	value?: IComponents
 }
 
 export interface IDivider extends BaseComponent {
@@ -162,7 +162,7 @@ export interface IGridLayout extends BaseComponent{
 
 export interface IPanel extends BaseComponent{
 	type: TypeComponent.PANEL,
-	value: IComponents
+	value?: IComponents
 }
 
 export interface FetchComponent extends ComponentAction{
