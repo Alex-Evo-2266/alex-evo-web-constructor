@@ -32,7 +32,9 @@ export const KeyValue:React.FC<IKeyValue> = (data) => {
             </div>
             <div className='alex-evo-web-constructor-key-value-value'>
                 <div className='alex-evo-web-constructor-key-value-value-contant'>
-                    <Component data={data.value}/>
+                    {
+                        data.value && <Component data={data.value}/>
+                    }
                 </div>
             </div>
         </div>

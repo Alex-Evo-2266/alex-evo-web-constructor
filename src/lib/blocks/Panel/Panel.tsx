@@ -6,7 +6,9 @@ export const Panel:React.FC<IPanel> = (data) => {
 
     return(
         <div className='alex-evo-web-constructor-panel'>
-            <Component data={data.value}/>
+            {
+                data.value && <Component data={data.value}/>
+            }
         </div>
     )
 }
