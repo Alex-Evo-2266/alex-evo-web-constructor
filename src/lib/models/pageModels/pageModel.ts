@@ -21,7 +21,7 @@ export enum ControlItemType {
 
 //----------------base interface----------------
 
-interface BaseComponent
+export interface BaseComponent
 {
 	type: TypeComponent
 	name?: string

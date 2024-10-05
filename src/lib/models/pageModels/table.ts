@@ -1,46 +1,26 @@
-import { IOption } from "./optionComponents"
 import { TypeComponent } from "../types"
+import { ComponentAction } from "./pageModel"
 
 export enum TypeColumn {
-	BASE = "",
-	ICON = "icon",
-	BUTTON = "btn",
-	BUTTON_ICON = "btn-icon",
+	BASE = "BASE",
+	JSON = "JSON"
 }
 
-export interface IColTable {
-	title: string
-	name: string
-	type?: TypeColumn
-	action_url?: string
-	out_value?: string
-}
-
-export type colTable = string | IColTable
-
-export interface ICelData {
-	title?: string
+export interface IColTable{
+	key:string
+	label: string
 	color?: string
-	onClick?: (value:any)=>void
+    backgroundColor?: string
+	typeCol?: TypeColumn
 }
 
-export type celData = string | ICelData
-
-export interface IDataItem{
-	[index: string]:celData
+export type IRow = {
+	[key:string]:string
 }
 
-export interface IItemTable {
-	data: IDataItem
-	onClick?: (row:any)=>void
-	action?: boolean
-}
-
-export interface ITable{
+export interface ITable extends ComponentAction{
 	type: TypeComponent.TABLE
-	src: string
+	title?: string
 	cols: IColTable[]
-	title: string
-	items?: IItemTable[]
-	option?: IOption
+	row: IRow[]
 }

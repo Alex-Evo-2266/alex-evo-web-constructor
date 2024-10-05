@@ -9,6 +9,8 @@ export const Text:React.FC<ITextField> = (data) => {
         style={{
             display: 'block',
             color: data.option?.color, 
+            padding: data.option?.padding,
+            margin: data.option?.margin,
             backgroundColor: data.option?.backgroundColor, 
             borderRadius:`${data.option?.borderRadius ?? 0}px`,
             fontSize:`${data.option?.fontSize ?? 18}px`,

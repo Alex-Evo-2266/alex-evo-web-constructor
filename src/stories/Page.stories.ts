@@ -28,6 +28,8 @@ export const Base: Story = {
       name: "d",
       type: TypeComponent.COLUMNS,
       count: 3,
+      option:{
+      },
       value:[{indexCol:1, value: {
         type: TypeComponent.TEXT,
         name: "aefsr",
@@ -200,10 +202,15 @@ export const Grid: Story = {
       type: TypeComponent.CARD,
       label: "Test",
       option:{
-        width: 300
+        width: 400,
+        pozition: 'center'
       },
       action: {
         action_type: ActionType.NONE
+      },
+      value:{
+        type: TypeComponent.TEXT,
+        value: "sdfgh"
       }
     },{
       type: TypeComponent.CARD,
@@ -319,6 +326,8 @@ export const Card: Story = {
     }],
    data:{
     type: TypeComponent.PANEL,
+    option:{
+    },
     value:{
       type: TypeComponent.COLUMNS,
       count: 2,
@@ -397,6 +406,35 @@ export const Card: Story = {
             action_target: "test-menu"
           }
         }
+      },
+      {
+        indexCol: 1,
+        value:{
+          type: TypeComponent.TABLE,
+          action:{action_type: ActionType.GET_REQUEST, action_target:"/sdfg/sdgfhf"},
+          cols: [{
+            label: "test1",
+            key: "k1"
+          },{
+            label: "test2",
+            key: "k2"
+          },{
+            label: "test3",
+            key: "k3"
+          }],
+          row:[{
+            k1: "rghdrth",
+            k2: "tgh65",
+            k3: "gk7",
+          },{
+            k1: "srhtj",
+            k2: "54",
+            k3: "74658",
+          },{
+            k1: "rhjf",
+            k3: "dfgj",
+          }]
+        },
       }]
     }
    }

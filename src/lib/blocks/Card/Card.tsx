@@ -13,8 +13,17 @@ export const Card:React.FC<ICard> = (data) => {
                 width: data.option?.width && `${data.option?.width}px`,
                 height: data.option?.height && `${data.option?.height}px`,
                 backgroundColor: data.option?.backgroundColor,
-                color: data.option?.color
-            }} 
+                color: data.option?.color,
+                padding: data.option?.padding,
+                margin: data.option?.margin,
+                borderRadius:data.option?.borderRadius && `${data.option?.borderRadius}px`,
+                display: 'flex',
+                justifyContent:
+                (data.option?.pozition == "center")?"center":
+                (data.option?.pozition == "left")?"start":
+                (data.option?.pozition == "right")?"end":
+                undefined
+            }}
             header={data.label} 
             imgSrc={data.img} 
             onClick={()=>actionHendler(data.action)}>

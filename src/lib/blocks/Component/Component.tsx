@@ -16,6 +16,7 @@ import { Slider } from '../Slider/Slider'
 import { Select } from '../Select/Select'
 import { Switch } from '../Switch/Switch'
 import { SendText } from '../SendText/SendText'
+import { Table } from '../Table/Table'
 
 export interface ComponentProp{
     data: IComponents
@@ -23,38 +24,31 @@ export interface ComponentProp{
 
 export const Component: React.FC<ComponentProp> = ({data}) => {
 
+
+    const Components:{[key in TypeComponent]:React.FC<any>} = {
+        [TypeComponent.COLUMNS]: Column,
+        [TypeComponent.TEXT]: Text,
+        [TypeComponent.LIST]: ListComponent,
+        [TypeComponent.BUTTON]: ButtonComponent,
+        [TypeComponent.KEY_VALUE]: KeyValue,
+        [TypeComponent.DIVIDER]: Divider,
+        [TypeComponent.CARD]: Card,
+        [TypeComponent.FLEX_CONTAINER]: FlexContainer,
+        [TypeComponent.GRID_LAYOUT]: GridLayout,
+        [TypeComponent.PANEL]: Panel,
+        [TypeComponent.SLIDER]: Slider,
+        [TypeComponent.SELECT]: Select,
+        [TypeComponent.SWITCH]: Switch,
+        [TypeComponent.SEND_TEXT]: SendText,
+        [TypeComponent.TABLE]: Table,
+    }
+
+    const Component = Components[data.type]
+
     return(
         <div className="component-container">
         {
-            (data.type === TypeComponent.COLUMNS)?
-            <Column {...{...data}}/>:
-            (data.type === TypeComponent.TEXT)?
-            <Text {...{...data}}/>:
-            (data.type === TypeComponent.LIST)?
-            <ListComponent {...{...data}}/>:
-            (data.type === TypeComponent.BUTTON)?
-            <ButtonComponent {...{...data}}/>:
-            (data.type === TypeComponent.KEY_VALUE)?
-            <KeyValue {...{...data}}/>:
-            (data.type === TypeComponent.DIVIDER)?
-            <Divider {...{...data}}/>:
-            (data.type === TypeComponent.CARD)?
-            <Card {...{...data}}/>:
-            (data.type === TypeComponent.FLEX_CONTAINER)?
-            <FlexContainer {...{...data}}/>:
-            (data.type === TypeComponent.GRID_LAYOUT)?
-            <GridLayout {...{...data}}/>:
-            (data.type === TypeComponent.PANEL)?
-            <Panel {...{...data}}/>:
-            (data.type === TypeComponent.SLIDER)?
-            <Slider {...{...data}}/>:
-            (data.type === TypeComponent.SELECT)?
-            <Select {...{...data}}/>:
-            (data.type === TypeComponent.SWITCH)?
-            <Switch {...{...data}}/>:
-            (data.type === TypeComponent.SEND_TEXT)?
-            <SendText {...{...data}}/>:
-            JSON.stringify(data)
+            <Component {...{...data}}/>
         }
         </div>
     )

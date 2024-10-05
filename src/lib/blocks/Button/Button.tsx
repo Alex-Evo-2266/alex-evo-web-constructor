@@ -24,6 +24,8 @@ export const ButtonComponent:React.FC<IButton> = (data) => {
                 width: (data.option?.width)?`${data.option?.width}px`:undefined,
                 minWidth: (data.option?.width)?`${data.option?.width}px`:undefined,
                 height: (data.option?.height)?`${data.option?.height}px`:undefined,
+                padding: data.option?.padding,
+                margin: data.option?.margin,
             }} onClick={(e)=>actionHendler(data.action, e)}>{data.label}</Button>
         </div>
         )

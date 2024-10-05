@@ -19,6 +19,7 @@ export const Slider:React.FC<ISlider> = (props) => {
 
     return(
         <SliderBase style={{
+            width: (props.option?.width)?`${props.option?.width}px`:"100%",
             justifyContent: 
                 (props.option?.pozition == "center")?"center":
                 (props.option?.pozition == "left")?'start':

@@ -10,12 +10,12 @@ import { FetchFunction } from '../models'
 
 interface IWebConstructorContext{
     fetchFunction?: FetchFunction,
-    showDialog:(nameDialog:string)=>void
+    showDialog:(nameDialog:string, query?:{[key:string]:string})=>void
     containerModal?: HTMLElement | null,
     containerMenu?: HTMLElement | null,
     screenSize: ScreenSize,
     showError?: (title: string, message: string)=>void
-    showMenu?: (name:string ,x:number, y:number)=>void
+    showMenu?: (name:string ,x:number, y:number, query?:{[key:string]:string})=>void
     systemCall?: (name: string, ...arg:any)=>void
 }
 
@@ -43,10 +43,13 @@ export const WebConstructor:React.FC<IWebConstructor> = ({data, fetchFunction, c
         visible: false
     })
 
-    const showDialog = useCallback((nameDialog:string) => {
+    const showDialog = useCallback((nameDialog:string, query?:{[key:string]:string}) => {
         const dialog = dialogs.find(item=>item.name === nameDialog)
         if(dialog)
+        {
+            dialog.query = query
             setDialogs(props=>[...props, dialog])
+        }
         else
             showError && showError("dialog not found", "")
     },[dialogs])
@@ -55,10 +58,10 @@ export const WebConstructor:React.FC<IWebConstructor> = ({data, fetchFunction, c
         setDialogs(prev=>prev.filter((_, index2)=>index !== index2))
     },[])
 
-    const showMenu = useCallback((name:string ,x:number, y:number)=>{
+    const showMenu = useCallback((name:string ,x:number, y:number, query?:{[key:string]:string})=>{
         const _menu = menu.find(item=>item.name === name)
         if(_menu)
-            setMenu({x, y, components:_menu.components, visible: true})
+            setMenu({x, y, components:_menu.components, visible: true, query})
         else
             showError && showError("menu not found", "")
     },[menu])

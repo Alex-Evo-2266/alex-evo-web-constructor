@@ -25,4 +25,5 @@ export interface IMenuProps{
     y: number
     components:IMenuItem[]
     visible: boolean
+    query?: {[key:string]:string}
 }
