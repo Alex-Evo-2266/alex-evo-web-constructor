@@ -26,7 +26,7 @@ export const Table:React.FC<ITable>  = (data) => {
         })
     }
 
-    const clickHandler = useCallback((dataItem:IDataItem, index:number) => {
+    const clickHandler = useCallback((_:IDataItem, index:number) => {
         if(!data.action) return;
         actionHendler(data.action, undefined, {index: String(index)})
     },[actionHendler])
