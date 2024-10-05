@@ -13,9 +13,9 @@ export const Panel:React.FC<IPanel> = (data) => {
                 margin: data.option?.margin,
                 backgroundColor: data.option?.backgroundColor, 
                 borderRadius:data.option?.borderRadius?`${data.option?.borderRadius}px`:undefined,
-                width: (data.option?.width)?`${data.option?.width}px`:"100%",
-                minWidth: (data.option?.width)?`${data.option?.width}px`:"100%",
-                height: (data.option?.height)?`${data.option?.height}px`:"100%",
+                width: (data.option?.width) && `${data.option?.width}px`,
+                minWidth: (data.option?.width) && `${data.option?.width}px`,
+                height: (data.option?.height) && `${data.option?.height}px`,
                 display: data.option?.pozition && data.option?.pozition !== 'center'? 'flex':undefined,
                 justifyContent:
                 (data.option?.pozition == "left")?"start":

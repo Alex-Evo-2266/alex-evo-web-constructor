@@ -18,9 +18,8 @@ export const ListComponent:React.FC<IList> = (data) => {
         {
             data.value.map((item, index)=>(
                 <div style={{
-                    display: 'flex',
+                    display: data.option?.pozition && data.option?.pozition !== 'center'?'flex':undefined,
                     justifyContent:
-                    (data.option?.pozition == "center")?"center":
                     (data.option?.pozition == "left")?"start":
                     (data.option?.pozition == "right")?"end":
                     undefined
