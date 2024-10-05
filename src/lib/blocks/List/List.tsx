@@ -14,16 +14,17 @@ export const ListComponent:React.FC<IList> = (data) => {
             padding: data.option?.padding,
             margin: data.option?.margin,
             borderRadius:data.option?.borderRadius && `${data.option?.borderRadius}px`,
-            display: 'flex',
-            justifyContent:
-            (data.option?.pozition == "center")?"center":
-            (data.option?.pozition == "left")?"start":
-            (data.option?.pozition == "right")?"end":
-            undefined
         }}>
         {
             data.value.map((item, index)=>(
-                <div key={index} className="alex-evo-web-constructor-list-item">
+                <div style={{
+                    display: 'flex',
+                    justifyContent:
+                    (data.option?.pozition == "center")?"center":
+                    (data.option?.pozition == "left")?"start":
+                    (data.option?.pozition == "right")?"end":
+                    undefined
+                }} key={index} className="alex-evo-web-constructor-list-item">
                     <Component data={item}/>
                 </div>
             ))

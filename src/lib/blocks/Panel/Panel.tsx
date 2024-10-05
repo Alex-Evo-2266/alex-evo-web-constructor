@@ -12,7 +12,7 @@ export const Panel:React.FC<IPanel> = (data) => {
                 padding: data.option?.padding,
                 margin: data.option?.margin,
                 backgroundColor: data.option?.backgroundColor, 
-                borderRadius:`${data.option?.borderRadius ?? 0}px`,
+                borderRadius:data.option?.borderRadius?`${data.option?.borderRadius}px`:undefined,
                 width: (data.option?.width)?`${data.option?.width}px`:"100%",
                 minWidth: (data.option?.width)?`${data.option?.width}px`:"100%",
                 height: (data.option?.height)?`${data.option?.height}px`:"100%",
