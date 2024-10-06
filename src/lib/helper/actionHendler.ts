@@ -21,19 +21,19 @@ export const useAction = () => {
         if(action.action_type === ActionType.GET_REQUEST)
         {
             if(context.fetchFunction)
-                context.fetchFunction(addQuery(action.action_target, {...action.query, ...arg}), "GET", null, {})
+                context.fetchFunction(addQuery(action.action_target, {...action.query, ...arg, ...contextDialog.query}), "GET", null, {})
             else
                 new Error("fetch function not found")
         }
         else if(action.action_type === ActionType.LINK)
-            window.location.replace(action.action_target);
+            window.location.replace(addQuery(action.action_target, {...arg, ...action.query}));
         else if(action.action_type === ActionType.DIALOG)
-            context.showDialog(action.action_target, arg)
+            context.showDialog(action.action_target, {...arg, ...action.query})
         else if(action.action_type === ActionType.SYSTEM)
             context.systemCall && context.systemCall.apply(this, [action.action_target, ...(action.arg ?? [])])
         else if(action.action_type === ActionType.MENU)
             if(event)
-                context.showMenu && context.showMenu(action.action_target, event.clientX, event.clientY, arg)
+                context.showMenu && context.showMenu(action.action_target, event.clientX, event.clientY, {...arg, ...action.query})
      
         if(contextDialog.hideDialog && contextDialog.index !== undefined && action.close_dialog)
             contextDialog.hideDialog()

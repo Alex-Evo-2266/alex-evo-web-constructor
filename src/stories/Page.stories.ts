@@ -247,7 +247,11 @@ export const Card: Story = {
           }
         }]
       },{
-        label: "t2"
+        label: "t2",
+        action:{
+          action_type: ActionType.GET_REQUEST,
+          action_target: "rgh/sdrh/sdh"
+        }
       }]
     }],
     dialogs:[{
@@ -392,7 +396,10 @@ export const Card: Story = {
           label: "test dialog",
           action:{
             action_type: ActionType.DIALOG,
-            action_target: "test-dialog"
+            action_target: "test-dialog",
+            query:{
+              test: "sddfhg"
+            }
           }
         }
       },
@@ -403,7 +410,10 @@ export const Card: Story = {
           label: "test menu",
           action:{
             action_type: ActionType.MENU,
-            action_target: "test-menu"
+            action_target: "test-menu",
+            query:{
+              test_menu:"test56"
+            }
           }
         }
       },

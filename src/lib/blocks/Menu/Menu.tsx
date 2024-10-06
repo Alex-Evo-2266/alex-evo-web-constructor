@@ -19,9 +19,9 @@ export const Menu:React.FC<MenuProps> = ({data, hideMenu}) => {
 
     const _actionHendler = useCallback((action?:BaseAction) => {
         if(action)
-            actionHendler(action)
+            actionHendler(action, undefined, data.query)
         hideMenu()
-    },[hideMenu, actionHendler])
+    },[hideMenu, actionHendler, data.query])
 
     const mapMenuSubItem = (data?: IMenuSubItemConstructor[]):IMenuSubItem[] | undefined => {
         if(!data) return 

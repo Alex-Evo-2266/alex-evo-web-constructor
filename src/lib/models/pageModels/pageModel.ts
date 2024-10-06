@@ -37,6 +37,9 @@ export interface ActionTemplate{
 export interface ActionTarget extends ActionTemplate{
 	action_type: ActionType.DIALOG | ActionType.LINK | ActionType.MENU
 	action_target: string
+	query?: {
+		[key:string]:string
+	}
 }
 
 export interface ActionFetchTarget extends ActionTemplate{

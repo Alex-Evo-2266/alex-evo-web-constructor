@@ -14,6 +14,9 @@ interface DialogProps {
 interface IDialogContext{
     index?: number
     hideDialog?:()=>void
+    query?:{
+        [key:string]:string
+    }
 }
 
 export const DialogContext = createContext<IDialogContext>({})
@@ -28,7 +31,7 @@ export const Dialog = ({data, index, hideDialog}:DialogProps) => {
 
     return(
         <DialogModal container={containerModal}>
-            <DialogContext.Provider value={{index, hideDialog: _hideDialog}}>
+            <DialogContext.Provider value={{index, hideDialog: _hideDialog, query: data.query}}>
                 <FullScrinTemplateDialog header={data.title} onHide={_hideDialog}>
                 {
                     data.components.map((item, index2)=>(
