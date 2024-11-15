@@ -1,11 +1,12 @@
 import { IPanel } from '../../models/pageModels/pageModel'
 import { Component } from '../Component/Component'
+import {Panel as PanelComponent} from 'alex-evo-sh-ui-kit'
 import './Panel.scss'
 
 export const Panel:React.FC<IPanel> = (data) => {
 
     return(
-        <div 
+        <PanelComponent
             className='alex-evo-web-constructor-panel'
             style={{
                 color: data.option?.color, 
@@ -26,6 +27,6 @@ export const Panel:React.FC<IPanel> = (data) => {
             {
                 data.value && <Component data={data.value}/>
             }
-        </div>
+        </PanelComponent>
     )
 }
