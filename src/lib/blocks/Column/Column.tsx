@@ -1,12 +1,14 @@
 import {ColumnLayout} from 'alex-evo-sh-ui-kit'
 import { IColumns } from '../../models/pageModels/pageModel'
 import { Component } from '../Component/Component'
+import './Column.scss'
 
 
 export const Column:React.FC<IColumns> = (data) => {
 
     return(
         <ColumnLayout 
+            gap={0}
             items={
                 data.value.map((item, index)=>({
                     indexCol: item.indexCol, 

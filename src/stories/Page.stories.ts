@@ -450,3 +450,71 @@ export const Card: Story = {
    }
   },
 };
+
+
+export const TestCombine: Story = {
+  args: {
+    dialogs:[],
+   data:{
+    type: TypeComponent.LIST,
+    value:[
+      {
+        type: TypeComponent.PANEL,
+        value: {
+          type: TypeComponent.LIST,
+          value:[
+            {
+              type: TypeComponent.TEXT,
+              value: "test label"
+            }
+          ]
+        }
+      },
+      {
+        type: TypeComponent.PANEL,
+        value: {
+          type: TypeComponent.LIST,
+          value:[
+            {
+              type: TypeComponent.TEXT,
+              value: "test label"
+            }
+          ]
+        }
+      },
+      {
+        type: TypeComponent.COLUMNS,
+        count: 2,
+        value: [
+          {
+            indexCol: 0,
+            value: {
+              type: TypeComponent.PANEL,
+              value: {
+                type: TypeComponent.BUTTON,
+                label: "test btn",
+                action: {
+                  action_type: ActionType.NONE
+                }
+              }
+            }
+          },
+          {
+            indexCol: 1,
+            value: {
+              type: TypeComponent.PANEL,
+              value: {
+                type: TypeComponent.BUTTON,
+                label: "test btn",
+                action: {
+                  action_type: ActionType.NONE
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
+   }
+  },
+};

@@ -7,6 +7,8 @@ import { Dialog } from './Dialog/Dialog'
 import { Menu } from './Menu/Menu'
 import { IMenu, IMenuProps } from '../models/menu/menu'
 import { FetchFunction } from '../models'
+import './index.scss'
+import { GapComponent } from '../utilsComponents/gapComponent'
 
 interface IWebConstructorContext{
     fetchFunction?: FetchFunction,
@@ -72,7 +74,9 @@ export const WebConstructor:React.FC<IWebConstructor> = ({data, fetchFunction, c
 
     return(
         <WebConstructorContext.Provider value={{fetchFunction, containerMenu, containerModal, screenSize, showDialog, showError, showMenu, systemCall}}>
-            <Component data={data}/>
+            <GapComponent>
+                <Component data={data}/>
+            </GapComponent>
             {
                 dialogsArr.map((item, index)=>
                     (<React.Fragment key={index}>
