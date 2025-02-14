@@ -546,9 +546,11 @@ export const MQTTTest: Story = {
           type: TypeComponent.LIST,
           value:[
             {
-              type: TypeComponent.JSON,
-              value: 'test str',
-              name: "test3"
+            
+                type: TypeComponent.JSON,
+                name: "data",
+                value: "rhdtjf"
+                
             }
           ]
         }
