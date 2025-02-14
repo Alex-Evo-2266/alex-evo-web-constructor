@@ -518,3 +518,56 @@ export const TestCombine: Story = {
    }
   },
 };
+
+
+export const MQTTTest: Story = {
+  args: {
+    dialogs:[],
+   data:{
+    type: TypeComponent.LIST,
+    value:[
+      {
+        type: TypeComponent.CONTENT_BOX,
+        label: "topic1",
+        value: {
+          type: TypeComponent.LIST,
+          value:[
+            {
+              type: TypeComponent.TEXT,
+              value: "test1"
+            }
+          ]
+        }
+      },
+      {
+        type: TypeComponent.CONTENT_BOX,
+        label: "topic2",
+        value: {
+          type: TypeComponent.LIST,
+          value:[
+            {
+              type: TypeComponent.JSON,
+              value: 'test str',
+              name: "test3"
+            }
+          ]
+        }
+      },
+      {
+        type: TypeComponent.CONTENT_BOX,
+        label: "topic3",
+        value: {
+          type: TypeComponent.LIST,
+          value:[
+            {
+              type: TypeComponent.JSON,
+              value: '{"fd": "dsf"}',
+              name: "test3"
+            }
+          ]
+        }
+      }
+    ]
+   }
+  },
+};

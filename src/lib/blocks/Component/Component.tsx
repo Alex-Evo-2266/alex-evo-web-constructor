@@ -17,6 +17,8 @@ import { Select } from '../Select/Select'
 import { Switch } from '../Switch/Switch'
 import { SendText } from '../SendText/SendText'
 import { Table } from '../Table/Table'
+import { ContentBox } from '../ContentBox/ContentBox'
+import { JSONComponent } from '../JSON/JSON'
 
 export interface ComponentProp{
     data: IComponents
@@ -41,6 +43,8 @@ export const Component: React.FC<ComponentProp> = ({data}) => {
         [TypeComponent.SWITCH]: Switch,
         [TypeComponent.SEND_TEXT]: SendText,
         [TypeComponent.TABLE]: Table,
+        [TypeComponent.CONTENT_BOX]: ContentBox,
+        [TypeComponent.JSON]: JSONComponent
     }
 
     const Component = Components[data.type]

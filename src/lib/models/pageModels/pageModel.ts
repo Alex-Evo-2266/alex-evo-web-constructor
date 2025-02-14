@@ -113,6 +113,16 @@ export interface ITextField extends ComponentContent
 
 //----------------text interface----------------
 
+//----------------json interface----------------
+
+export interface IJSON extends ComponentContent
+{
+	type: TypeComponent.JSON
+	value: string
+}
+
+//----------------json interface----------------
+
 //----------------button interface----------------
 
 export interface IButton extends ComponentAction{
@@ -168,6 +178,12 @@ export interface IPanel extends BaseComponent{
 	value?: IComponents
 }
 
+export interface IContentBox extends BaseComponent{
+	type: TypeComponent.CONTENT_BOX,
+	label: string,
+	value?: IComponents
+}
+
 export interface FetchComponent extends ComponentAction{
 	action: ActionFetchTarget
 }
@@ -196,7 +212,7 @@ export interface ISendText extends FetchComponent{
 	value?: string
 }
 
-export type IComponents = ITextField | ITable | ICard | IButton | IColumns | IList | IKeyValue | IDivider | IFlexContainer | IGridLayout | IPanel | ISlider | ISelect | ISwitch | ISendText
+export type IComponents = IJSON | IContentBox | ITextField | ITable | ICard | IButton | IColumns | IList | IKeyValue | IDivider | IFlexContainer | IGridLayout | IPanel | ISlider | ISelect | ISwitch | ISendText
 
 export interface IPage{
 	page: IComponents[]
