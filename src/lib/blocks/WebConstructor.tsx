@@ -12,7 +12,7 @@ import { GapComponent } from '../utilsComponents/gapComponent'
 
 interface IWebConstructorContext{
     fetchFunction?: FetchFunction,
-    showDialog:(nameDialog:string, query?:{[key:string]:string})=>void
+    showDialog:(nameDialog:string, query?:{[key:string]:string}, data?:IComponents)=>void
     containerModal?: HTMLElement | null,
     containerMenu?: HTMLElement | null,
     screenSize: ScreenSize,
@@ -45,11 +45,12 @@ export const WebConstructor:React.FC<IWebConstructor> = ({data, fetchFunction, c
         visible: false
     })
 
-    const showDialog = useCallback((nameDialog:string, query?:{[key:string]:string}) => {
+    const showDialog = useCallback((nameDialog:string, query?:{[key:string]:string}, data?:IComponents) => {
         const dialog = dialogs.find(item=>item.name === nameDialog)
         if(dialog)
         {
             dialog.query = query
+            dialog.data = data
             setDialogs(props=>[...props, dialog])
         }
         else

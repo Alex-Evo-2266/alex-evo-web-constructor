@@ -573,3 +573,93 @@ export const MQTTTest: Story = {
    }
   },
 };
+
+
+export const Card2: Story = {
+  args: {
+    menu:[{
+      name:"test-menu",
+      components:[{
+        label: "t1",
+        subItems:[{
+          label: "s1",
+          action:{
+            action_type: ActionType.DIALOG,
+            action_target: "test-dialog"
+          }
+        }]
+      },{
+        label: "t2",
+        action:{
+          action_type: ActionType.GET_REQUEST,
+          action_target: "rgh/sdrh/sdh"
+        }
+      }]
+    }],
+    dialogs:[{
+      name:"test-dialog",
+      title: "Test dialog",
+      components:[{
+        type: TypeComponent.LIST,
+        name: "list",
+        value: [
+          {
+            type: TypeComponent.FLEX_CONTAINER,
+            option:{
+              pozition: 'right'
+            },
+            value:[{
+              type: TypeComponent.BUTTON,
+              label: "test btn",
+              name: "test btn",
+              option:{
+                pozition: "center"
+              },
+              action: {
+                action_type: ActionType.GET_REQUEST,
+                action_target: "/api/test",
+                close_dialog: true
+              }
+            },
+            {
+              type: TypeComponent.BUTTON,
+              label: "test btn",
+              name: "test btn",
+              option:{
+                backgroundColor: "red",
+                borderRadius: 4,
+                color: "#fff"
+              },
+              action: {
+                action_type: ActionType.SYSTEM,
+                action_target: "add dev",
+                arg:["sgsdg", "sgh", {sdg: "dsg"}]
+              }
+            }]
+          }
+        ]
+      }]
+    }],
+   data:{
+    type: TypeComponent.PANEL,
+    option:{
+    },
+    value:{
+      type: TypeComponent.BUTTON,
+      label: "test dialog",
+      action:{
+        action_type: ActionType.DIALOG,
+        action_target: "test-dialog",
+        query:{
+          test: "sddfhg"
+        },
+        data: {
+          type: TypeComponent.JSON,
+          name: "data",
+          value: "rhdtjf"
+        }
+      }
+    }
+   }
+  },
+};

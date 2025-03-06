@@ -35,11 +35,20 @@ export interface ActionTemplate{
 }
 
 export interface ActionTarget extends ActionTemplate{
-	action_type: ActionType.DIALOG | ActionType.LINK | ActionType.MENU
+	action_type: ActionType.LINK | ActionType.MENU
 	action_target: string
 	query?: {
 		[key:string]:string
 	}
+}
+
+export interface ActionTargetDialog extends ActionTemplate{
+	action_type: ActionType.DIALOG
+	action_target: string
+	query?: {
+		[key:string]:string
+	}
+	data?: IComponents
 }
 
 export interface ActionFetchTarget extends ActionTemplate{
@@ -62,7 +71,7 @@ export interface ActionNoTarget extends ActionTemplate{
 	action_type: ActionType.NONE
 }
 
-export type BaseAction = ActionTarget | ActionNoTarget | ActionFetchTarget | ActionSystemTarget
+export type BaseAction = ActionTarget | ActionNoTarget | ActionFetchTarget | ActionSystemTarget | ActionTargetDialog
 
 //----------------content----------------
 

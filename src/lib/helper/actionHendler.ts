@@ -28,7 +28,7 @@ export const useAction = () => {
         else if(action.action_type === ActionType.LINK)
             window.location.replace(addQuery(action.action_target, {...arg, ...action.query}));
         else if(action.action_type === ActionType.DIALOG)
-            context.showDialog(action.action_target, {...arg, ...action.query})
+            context.showDialog(action.action_target, {...arg, ...action.query}, action.data)
         else if(action.action_type === ActionType.SYSTEM)
             context.systemCall && context.systemCall.apply(this, [action.action_target, ...(action.arg ?? [])])
         else if(action.action_type === ActionType.MENU)

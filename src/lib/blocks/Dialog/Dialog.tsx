@@ -38,6 +38,9 @@ export const Dialog = ({data, index, hideDialog}:DialogProps) => {
                         <Component key={`dialog-${index}-component-${index2}`} data={item}/>
                     ))
                 }
+                {
+                    data.data && <Component data={data.data}/>
+                }
                 </FullScrinTemplateDialog>
             </DialogContext.Provider>
         </DialogModal>

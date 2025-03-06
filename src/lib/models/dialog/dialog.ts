@@ -6,4 +6,5 @@ export interface IDialog{
     title: string,
     components: IComponents[],
     query?: {[key:string]:string}
+    data?: IComponents
 }
