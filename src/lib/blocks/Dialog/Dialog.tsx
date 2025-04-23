@@ -1,4 +1,4 @@
-import { DialogModal, FullScrinTemplateDialog } from "alex-evo-sh-ui-kit"
+import { ModalPortal, FullScreenTemplateDialog } from "alex-evo-sh-ui-kit"
 import { createContext, useCallback, useContext } from "react"
 import { WebConstructorContext } from "../WebConstructor"
 import { IDialog } from "../../models/dialog/dialog"
@@ -30,9 +30,9 @@ export const Dialog = ({data, index, hideDialog}:DialogProps) => {
     },[index, hideDialog])
 
     return(
-        <DialogModal container={containerModal}>
+        <ModalPortal container={containerModal}>
             <DialogContext.Provider value={{index, hideDialog: _hideDialog, query: data.query}}>
-                <FullScrinTemplateDialog header={data.title} onHide={_hideDialog}>
+                <FullScreenTemplateDialog header={data.title} onHide={_hideDialog}>
                 {
                     data.components.map((item, index2)=>(
                         <Component key={`dialog-${index}-component-${index2}`} data={item}/>
@@ -41,8 +41,8 @@ export const Dialog = ({data, index, hideDialog}:DialogProps) => {
                 {
                     data.data && <Component data={data.data}/>
                 }
-                </FullScrinTemplateDialog>
+                </FullScreenTemplateDialog>
             </DialogContext.Provider>
-        </DialogModal>
+        </ModalPortal>
     )
 }

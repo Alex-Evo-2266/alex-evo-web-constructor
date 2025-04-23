@@ -10,7 +10,7 @@ export const ContentBox:React.FC<IContentBox> = (data) => {
             <ContentBoxComponent
                 label={data.label}
                 className=''
-                hiding
+                collapsible
                 border
                 style={{
                     color: data.option?.color, 
