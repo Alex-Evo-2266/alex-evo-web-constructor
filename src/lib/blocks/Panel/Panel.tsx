@@ -10,12 +10,13 @@ export const Panel:React.FC<IPanel> = (data) => {
         <GapComponent>
             <PanelComponent
                 className='alex-evo-web-constructor-panel'
+                borderRadius={data.option?.borderRadius ?? 12}
+                elevation={6}
                 style={{
                     color: data.option?.color, 
                     padding: data.option?.padding ?? '10px',
                     margin: data.option?.margin,
                     backgroundColor: data.option?.backgroundColor, 
-                    borderRadius:data.option?.borderRadius?`${data.option?.borderRadius}px`:undefined,
                     width: (data.option?.width) && `${data.option?.width}px`,
                     minWidth: (data.option?.width) && `${data.option?.width}px`,
                     height: (data.option?.height) && `${data.option?.height}px`,
