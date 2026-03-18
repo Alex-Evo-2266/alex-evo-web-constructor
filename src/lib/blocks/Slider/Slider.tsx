@@ -7,7 +7,7 @@ import { useCallback, useRef } from "react"
 export const Slider:React.FC<ISlider> = (props) => {
 
     const {changeHandler} = useAction()
-    const timeoutID = useRef<NodeJS.Timeout | null>(null)
+    const timeoutID = useRef<number | null>(null)
 
     const _changeHandler = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         if(timeoutID.current)
