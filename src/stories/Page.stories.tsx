@@ -38,6 +38,11 @@ function createRuntime() {
     );
 
     store.set(
+        "n",
+        24,
+    );
+
+    store.set(
         "lamp.state",
         "OFF",
     );
@@ -242,8 +247,17 @@ export const SetDataAction: Story = {
                                     label:
                                         "Turn ON",
                                 },
-
                                 actions: [
+                                    {
+                                        type:
+                                            "set_data",
+
+                                        path:
+                                            "n",
+
+                                        value:
+                                            "10",
+                                    },
                                     {
                                         type:
                                             "set_data",
@@ -253,7 +267,7 @@ export const SetDataAction: Story = {
 
                                         value:
                                             "ON",
-                                    },
+                                    }
                                 ],
                             },
                             {
@@ -261,7 +275,16 @@ export const SetDataAction: Story = {
                                 type: "text",
 
                                 data:{
-                                    text:"lamp.state",
+                                    text: { binding: "lamp.state" },
+                                },
+                            },
+
+                            {
+                                id: "test1",
+                                type: "text",
+
+                                data:{
+                                    text: { expression: "n * 4" },
                                 },
                             },
                         ],

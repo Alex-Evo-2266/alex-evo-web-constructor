@@ -1,10 +1,17 @@
-export type DataValue =
+
+
+export type DataNode =
     | string
     | number
     | boolean
-    | object
-    | null;
+    | {
+          binding: string
+      }
+    | {
+          expression: string
+      }
 
+export type Subscriber = (value: unknown) => void
 // export interface DataStore {
 //     get(path: string): DataValue;
 

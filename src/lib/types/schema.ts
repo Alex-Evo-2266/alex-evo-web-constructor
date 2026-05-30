@@ -1,4 +1,5 @@
 import { ActionSchema } from "./actions";
+import { DataNode } from "./dataStore";
 
 export interface DashboardSchema {
     version: string;
@@ -12,6 +13,8 @@ export interface LayoutSchema {
     children: WidgetSchema[];
 }
 
+
+
 export interface WidgetSchema<T=Record<string, unknown>> {
     id: string;
     type: string;
@@ -22,7 +25,7 @@ export interface WidgetSchema<T=Record<string, unknown>> {
 
     actions?: ActionSchema[];
 
-    data?: Record<string, string>;
+    data?: Record<string, DataNode>;
 
     layout?: {
         x?: number;

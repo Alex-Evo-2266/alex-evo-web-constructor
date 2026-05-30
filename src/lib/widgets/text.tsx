@@ -1,13 +1,13 @@
 
 import { Typography } from "alex-evo-sh-ui-kit"
 import { WidgetSchema } from "../types/schema"
-import { useData } from "../hooks/useData"
+import { useResolvedData } from "../hooks/useResolvedData"
 
 export function TextWidget({
     widget,
 }:{ widget: WidgetSchema<{text: string}>} ) {
 
-    const value = useData(widget.data?.text)
+    const value = useResolvedData(widget.data?.text)
 
     return (
         <Typography type="body">

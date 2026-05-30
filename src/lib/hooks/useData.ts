@@ -1,35 +1,20 @@
-import {
-    useEffect,
-    useState,
-} from "react"
+import { useSyncExternalStore } from "react"
+import { useDashboard } from "../providers/DashboardProvider"
 
-import { useDashboard }
-    from "../providers/DashboardProvider"
+export function useData<T = any>(path?: string): T | undefined {
+    const { store } = useDashboard()
 
-export function useData<T>(
-    path: string | undefined,
-): T | undefined {
-    const { store } =
-        useDashboard()
+    return useSyncExternalStore(
+        (cb) => {
+            if (!path) return () => {}
 
-    const [value, setValue] =
-        useState<T | undefined>(
-            store.get(path ?? ""),
-        )
+            return store.subscribe(path, cb)
+        },
+        () => {
+            if (!path) return undefined
 
-    useEffect(() => {
-        if(path !== undefined)
-            return store.subscribe(
-                path,
-                value =>
-                    setValue(
-                        value as T,
-                    ),
-            )
-    }, [path])
-
-    if(path === undefined)
-        return undefined
-
-    return value
+            return store.get(path)
+        },
+        () => undefined
+    )
 }
