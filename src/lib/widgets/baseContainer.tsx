@@ -9,7 +9,7 @@ export function ContainerWidget({
         <ContentBox border label={widget.props?.label ?? ""} collapsible>
             {widget.children?.map((child: any) => (
                 <WidgetRenderer
-                    key={child.id}
+                    key={child}
                     widget={child}
                 />
             ))}

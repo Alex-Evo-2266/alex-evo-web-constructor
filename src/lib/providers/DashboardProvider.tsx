@@ -3,12 +3,14 @@ import { WidgetRegistry } from "../core/registry/WidgetRegistry";
 import { EventBus } from "../core/events/EventBus";
 import { DataStore } from "../core/data/DataStore";
 import { ModalManager } from "../core/modal/ModalManager";
+import { BlockStore } from "../core/renderer/BlockStore";
 
 export interface DashboardRuntime {
     registry: WidgetRegistry
     store: DataStore
     events: EventBus
     modals: ModalManager
+    blocks: BlockStore
 }
 
 interface Props {

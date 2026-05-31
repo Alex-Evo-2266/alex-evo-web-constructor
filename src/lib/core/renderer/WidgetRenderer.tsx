@@ -1,21 +1,31 @@
-import { WidgetSchema } from "../../types/schema";
+import { NodeId } from "../../types/schema";
 import { useRegistry } from "../../providers/DashboardProvider";
+import { useBlock } from "../../hooks/useBlock";
 
 interface Props {
-    widget: WidgetSchema;
+    widget: NodeId;
 }
 
 export function WidgetRenderer({
     widget,
 }: Props) {
     const registry = useRegistry();
+    const block = useBlock(widget);
 
-    const definition = registry.get(widget.type);
+    if (!block) {
+        return (
+            <div>
+                Not found widget: {widget}
+            </div>
+        );
+    }
+
+    const definition = registry.get(block.type);
 
     if (!definition) {
         return (
             <div>
-                Unknown widget: {widget.type}
+                Unknown widget: {block.type}
             </div>
         );
     }
@@ -24,7 +34,7 @@ export function WidgetRenderer({
 
     return (
         <Component
-            widget={widget}
+            widget={block}
         />
     );
 }

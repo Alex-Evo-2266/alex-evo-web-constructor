@@ -19,8 +19,6 @@ export function useResolvedData(node: any) {
     // 3. стабильные deps (даже если пустые)
     const deps = result?.deps ?? []
 
-    console.log("p0",deps)
-
     // 4. subscribe ВСЕГДА вызывается
     return useSyncExternalStore(
         (cb) => {

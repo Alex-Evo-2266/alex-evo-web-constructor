@@ -8,9 +8,11 @@ import { ModalManager } from "../lib/core/modal/ModalManager";
 import { Dashboard } from "../lib/Dashboard";
 import { DashboardProvider } from "../lib/providers/DashboardProvider";
 import { ContainerWidget } from "../lib/widgets/baseContainer";
+import { Blocks, DashboardSchema } from "../lib/types/schema";
+import { BlockStore } from "../lib/core/renderer/BlockStore";
 
 
-function createRuntime() {
+function createRuntime(blocks: Blocks) {
     const registry = new WidgetRegistry();
 
     registry.register({
@@ -31,6 +33,7 @@ function createRuntime() {
     const store = new DataStore();
     const events = new EventBus();
     const modals = new ModalManager();
+    const blocksStore = new BlockStore(blocks);
 
     store.set(
         "temperature",
@@ -52,6 +55,7 @@ function createRuntime() {
         store,
         events,
         modals,
+        blocks: blocksStore
     };
 }
 
@@ -67,9 +71,9 @@ type Story = StoryObj<typeof Dashboard>;
 function DashboardWrapper({
     schema,
 }: {
-    schema: any;
+    schema: DashboardSchema;
 }) {
-    const runtime = createRuntime();
+    const runtime = createRuntime(schema.blocks);
 
     return (
         <DashboardProvider
@@ -89,28 +93,30 @@ export const SimpleCard: Story = {
             schema={{
                 version: "1.0.0",
 
+                blocks: 
+                {
+                    card: {
+                        id: "card",
+                        type: "container",
+
+                        children: ["title"],
+                    },
+                    title: {
+                        id: "title",
+                        type: "text",
+
+                        props: {
+                            text: "Smart Home",
+                        },
+                    }
+                },
+
                 layouts: [
                     {
                         id: "main",
                         type: "flex",
 
-                        children: [
-                            {
-                                id: "card",
-                                type: "container",
-
-                                children: [
-                                    {
-                                        id: "title",
-                                        type: "text",
-
-                                        props: {
-                                            text: "Smart Home",
-                                        },
-                                    },
-                                ],
-                            },
-                        ],
+                        children: ["card"],
                     },
                 ],
             }}
@@ -125,35 +131,36 @@ export const NestedContainers: Story = {
             schema={{
                 version: "1.0.0",
 
+                blocks:{
+                    outer: {
+                        id: "outer",
+                        type: "container",
+                        props: {label: "test"},
+
+                        children: ["inner"],
+                    },
+                    inner: {
+                        id: "inner",
+                        type: "container",
+
+                        children: ["text"],
+                    },
+                    text: {
+                        id: "text",
+                        type: "text",
+
+                        props: {
+                            text: "Nested widget",
+                        },
+                    }
+                },
+
                 layouts: [
                     {
                         id: "main",
                         type: "flex",
 
-                        children: [
-                            {
-                                id: "outer",
-                                type: "container",
-
-                                children: [
-                                    {
-                                        id: "inner",
-                                        type: "container",
-
-                                        children: [
-                                            {
-                                                id: "text",
-                                                type: "text",
-
-                                                props: {
-                                                    text: "Nested widget",
-                                                },
-                                            },
-                                        ],
-                                    },
-                                ],
-                            },
-                        ],
+                        children: ["outer"],
                     },
                 ],
             }}
@@ -162,9 +169,50 @@ export const NestedContainers: Story = {
 };
 
 export const EventDemo: Story = {
-    render: () => {
+    args: {
+        schema: {
+            version:"1.0.0",
+            blocks: {
+                button: {
+                    id: "button",
+                    type: "button",
+
+                    props: {
+                        label:
+                            "Toggle Lamp",
+                    },
+
+                    actions: [
+                        {
+                            type:
+                                "emit",
+
+                            event:
+                                "lamp.toggle",
+
+                            payload:
+                                {
+                                    id:
+                                        "lamp1",
+                                },
+                        },
+                    ],
+                }
+            },
+
+            layouts: [
+                {
+                    id: "main",
+                    type: "flex",
+
+                    children: ["button"],
+                },
+            ],
+        }
+    },
+    render: ({schema}) => {
         const runtime =
-            createRuntime();
+            createRuntime(schema.blocks);
 
         runtime.events.on(
             "lamp.toggle",
@@ -181,45 +229,7 @@ export const EventDemo: Story = {
                 runtime={runtime}
             >
                 <Dashboard
-                    schema={{
-                        version:
-                            "1.0.0",
-
-                        layouts: [
-                            {
-                                id: "main",
-                                type: "flex",
-
-                                children: [
-                                    {
-                                        id: "button",
-                                        type: "button",
-
-                                        props: {
-                                            label:
-                                                "Toggle Lamp",
-                                        },
-
-                                        actions: [
-                                            {
-                                                type:
-                                                    "emit",
-
-                                                event:
-                                                    "lamp.toggle",
-
-                                                payload:
-                                                    {
-                                                        id:
-                                                            "lamp1",
-                                                    },
-                                            },
-                                        ],
-                                    },
-                                ],
-                            },
-                        ],
-                    }}
+                    schema={schema}
                 />
             </DashboardProvider>
         );
@@ -233,61 +243,62 @@ export const SetDataAction: Story = {
             schema={{
                 version: "1.0.0",
 
+                blocks: {
+                    button: {
+                        id: "button",
+                        type: "button",
+
+                        props: {
+                            label:
+                                "Turn ON",
+                        },
+                        actions: [
+                            {
+                                type:
+                                    "set_data",
+
+                                path:
+                                    "n",
+
+                                value:
+                                    "10",
+                            },
+                            {
+                                type:
+                                    "set_data",
+
+                                path:
+                                    "lamp.state",
+
+                                value:
+                                    "ON",
+                            }
+                        ],
+                    },
+                    state: {
+                        id: "state",
+                        type: "text",
+
+                        data:{
+                            text: { binding: "lamp.state" },
+                        },
+                    },
+                    test1:  {
+                        id: "test1",
+                        type: "text",
+
+                        data:{
+                            text: { expression: "n * 4" },
+                        },
+                    }
+                },
+
                 layouts: [
                     {
                         id: "main",
                         type: "flex",
 
-                        children: [
-                            {
-                                id: "button",
-                                type: "button",
-
-                                props: {
-                                    label:
-                                        "Turn ON",
-                                },
-                                actions: [
-                                    {
-                                        type:
-                                            "set_data",
-
-                                        path:
-                                            "n",
-
-                                        value:
-                                            "10",
-                                    },
-                                    {
-                                        type:
-                                            "set_data",
-
-                                        path:
-                                            "lamp.state",
-
-                                        value:
-                                            "ON",
-                                    }
-                                ],
-                            },
-                            {
-                                id: "state",
-                                type: "text",
-
-                                data:{
-                                    text: { binding: "lamp.state" },
-                                },
-                            },
-
-                            {
-                                id: "test1",
-                                type: "text",
-
-                                data:{
-                                    text: { expression: "n * 4" },
-                                },
-                            },
-                        ],
+                        children: ["button", "state", "test1"],
                     },
                 ],
             }}

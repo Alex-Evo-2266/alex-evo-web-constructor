@@ -12,10 +12,10 @@ export function Dashboard({
         <>
             {schema.layouts.map(layout => (
                 <div key={layout.id}>
-                    {layout.children.map(widget => (
+                    {layout.children.map(widgetId => (
                         <WidgetRenderer
-                            key={widget.id}
-                            widget={widget}
+                            key={widgetId}
+                            widget={widgetId}
                         />
                     ))}
                 </div>

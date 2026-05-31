@@ -28,7 +28,6 @@ export class DataStore {
 
     set(path: string, value: unknown) {
         setIn(this.data, path, value)
-        console.log(path, value, this.data)
 
         this.notify(path)
 
@@ -68,7 +67,6 @@ export class DataStore {
         const value = this.get(path)
 
         this.subscribers.get(path)?.forEach(cb => cb(value))
-        console.log(path, this.subscribers)
 
         // notify parent paths (devices.lamp1.state -> devices.lamp1 -> devices)
         const parts = path.split(".")

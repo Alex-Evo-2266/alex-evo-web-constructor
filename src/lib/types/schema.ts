@@ -1,8 +1,13 @@
 import { ActionSchema } from "./actions";
 import { DataNode } from "./dataStore";
 
+export type NodeId = string
+
+export type Blocks = {[key: NodeId]: WidgetSchema}
+
 export interface DashboardSchema {
     version: string;
+    blocks: Blocks;
     layouts: LayoutSchema[];
     modals?: ModalSchema[];
 }
@@ -10,10 +15,8 @@ export interface DashboardSchema {
 export interface LayoutSchema {
     id: string;
     type: "grid" | "flex";
-    children: WidgetSchema[];
+    children: NodeId[];
 }
-
-
 
 export interface WidgetSchema<T=Record<string, unknown>> {
     id: string;
@@ -21,7 +24,7 @@ export interface WidgetSchema<T=Record<string, unknown>> {
 
     props?: T;
 
-    children?: WidgetSchema[];
+    children?: NodeId[];
 
     actions?: ActionSchema[];
 
@@ -38,5 +41,5 @@ export interface WidgetSchema<T=Record<string, unknown>> {
 export interface ModalSchema {
     id: string;
     title?: string;
-    children: WidgetSchema[];
+    children: NodeId[];
 }
