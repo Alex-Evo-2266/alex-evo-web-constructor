@@ -1,11 +1,11 @@
 import { Typography } from "alex-evo-sh-ui-kit"
 import { useResolvedData } from "../../lib/hooks/useResolvedData"
-import { WidgetSchema } from "../../lib/types/schema"
+import { WidgetProps } from "../../lib/types/schema"
 
 
 export function TextWidget({
     widget,
-}:{ widget: WidgetSchema<{text: string}>} ) {
+}:WidgetProps ) {
 
     const value = useResolvedData(widget.data?.text)
 

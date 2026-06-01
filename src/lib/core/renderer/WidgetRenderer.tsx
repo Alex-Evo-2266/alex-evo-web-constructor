@@ -7,7 +7,7 @@ interface Props {
 }
 
 export function WidgetRenderer({
-    widget,
+    widget
 }: Props) {
     const registry = useRegistry();
     const block = useBlock(widget);
@@ -35,6 +35,13 @@ export function WidgetRenderer({
     return (
         <Component
             widget={block}
-        />
+        >
+            {block.children?.map((childId: NodeId) => (
+                <WidgetRenderer
+                    key={childId}
+                    widget={childId}
+                />
+            ))}
+        </Component>
     );
 }

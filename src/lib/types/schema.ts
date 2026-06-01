@@ -34,3 +34,5 @@ export interface WidgetSchema<T=Record<string, unknown>> {
         h?: number;
     };
 }
+
+export type WidgetProps<T = any> = { widget: WidgetSchema<T>, children: React.ReactNode}

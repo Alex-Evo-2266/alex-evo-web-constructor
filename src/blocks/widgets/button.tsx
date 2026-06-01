@@ -2,12 +2,12 @@ import { Button } from "alex-evo-sh-ui-kit"
 import { ActionExecutor } from "../../lib/core/actions/ActionExecutor"
 import { useResolvedData } from "../../lib/hooks/useResolvedData"
 import { useDashboard } from "../../lib/providers/DashboardProvider"
-import { WidgetSchema } from "../../lib/types/schema"
+import { WidgetProps } from "../../lib/types/schema"
 
 
 export function ButtonWidget({
     widget,
-}:{ widget: WidgetSchema<{label: string}>} ) {
+}:WidgetProps ) {
     const {
         store,
         events,
