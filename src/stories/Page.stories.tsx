@@ -1,17 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { WidgetRegistry } from "../lib/core/registry/WidgetRegistry";
-import { DataStore } from "../lib/core/data/DataStore";
-import { EventBus } from "../lib/core/events/EventBus";
-import { ModalManager } from "../lib/core/modal/ModalManager";
 import { Dashboard } from "../lib/Dashboard";
 import { DashboardSchema } from "../lib/types/schema";
 import { DashboardMainProvider } from "../lib/providers/DashboardMainProvider";
 import { TextWidget } from "../blocks/widgets/text";
 import { ButtonWidget } from "../blocks/widgets/button";
 import { ContainerWidget } from "../blocks/widgets/baseContainer";
-import { LayoutRegistry } from "../lib/core/registry/layoutRegistry";
 import { FlexLayout } from "../blocks/layouts/Flex";
 import { Modal } from "../blocks/modals/Modal";
+import { DataStore, EventBus, LayoutRegistry, ModalManager, WidgetRegistry } from "../lib";
 
 
 function createRuntime() {
