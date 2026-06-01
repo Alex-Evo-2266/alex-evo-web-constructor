@@ -38,10 +38,8 @@ export class ActionExecutor {
                 break
 
             case "open_modal":
-                this.modals.open(
-                    action.modalId,
-                    action.context,
-                )
+                this.modals.getCurrent
+                this.modals.open(action.modalId)
                 break
 
             case "close_modal":

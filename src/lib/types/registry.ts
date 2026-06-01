@@ -1,4 +1,4 @@
-interface WidgetDefinition {
+export interface WidgetDefinition {
     type: string
 
     component: React.ComponentType<any>

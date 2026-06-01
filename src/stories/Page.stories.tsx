@@ -6,13 +6,13 @@ import { DataStore } from "../lib/core/data/DataStore";
 import { EventBus } from "../lib/core/events/EventBus";
 import { ModalManager } from "../lib/core/modal/ModalManager";
 import { Dashboard } from "../lib/Dashboard";
-import { DashboardProvider } from "../lib/providers/DashboardProvider";
 import { ContainerWidget } from "../lib/widgets/baseContainer";
-import { Blocks, DashboardSchema } from "../lib/types/schema";
-import { BlockStore } from "../lib/core/renderer/BlockStore";
+import { Modal } from "../lib/widgets/Modal";
+import { DashboardSchema } from "../lib/types/schema";
+import { DashboardMainProvider } from "../lib/providers/DashboardMainProvider";
 
 
-function createRuntime(blocks: Blocks) {
+function createRuntime() {
     const registry = new WidgetRegistry();
 
     registry.register({
@@ -33,7 +33,6 @@ function createRuntime(blocks: Blocks) {
     const store = new DataStore();
     const events = new EventBus();
     const modals = new ModalManager();
-    const blocksStore = new BlockStore(blocks);
 
     store.set(
         "temperature",
@@ -54,8 +53,7 @@ function createRuntime(blocks: Blocks) {
         registry,
         store,
         events,
-        modals,
-        blocks: blocksStore
+        modals
     };
 }
 
@@ -73,16 +71,17 @@ function DashboardWrapper({
 }: {
     schema: DashboardSchema;
 }) {
-    const runtime = createRuntime(schema.blocks);
+    const runtime = createRuntime();
 
     return (
-        <DashboardProvider
+        <DashboardMainProvider
             runtime={runtime}
+            schema={schema}
         >
             <Dashboard
                 schema={schema}
             />
-        </DashboardProvider>
+        </DashboardMainProvider>
     );
 }
 
@@ -212,7 +211,7 @@ export const EventDemo: Story = {
     },
     render: ({schema}) => {
         const runtime =
-            createRuntime(schema.blocks);
+            createRuntime();
 
         runtime.events.on(
             "lamp.toggle",
@@ -225,13 +224,14 @@ export const EventDemo: Story = {
         );
 
         return (
-            <DashboardProvider
+            <DashboardMainProvider
                 runtime={runtime}
+                schema={schema}
             >
                 <Dashboard
                     schema={schema}
                 />
-            </DashboardProvider>
+            </DashboardMainProvider>
         );
     },
 };
@@ -304,4 +304,115 @@ export const SetDataAction: Story = {
             }}
         />
     ),
+};
+
+export const ModalDemo: Story = {
+    args: {
+        schema: {
+            version:"1.0.0",
+            blocks: {
+                button: {
+                    id: "button",
+                    type: "button",
+
+                    props: {
+                        label:
+                            "Toggle Lamp",
+                    },
+
+                    actions: [
+                        {
+                            type:
+                                "open_modal",
+
+                            modalId: "modaltest"
+
+                        },
+                    ],
+                },
+                button2: {
+                    id: "button2",
+                    type: "button",
+
+                    props: {
+                        label:
+                            "Turn ON",
+                    },
+                    actions: [
+                        {
+                            type:
+                                "set_data",
+
+                            path:
+                                "n",
+
+                            value:
+                                "10",
+                        }
+                    ],
+                },
+                test1:  {
+                    id: "test1",
+                    type: "text",
+
+                    data:{
+                        text: { expression: "n * 4" },
+                    },
+                }
+            },
+
+
+            layouts: [
+                {
+                    id: "main",
+                    type: "flex",
+
+                    children: ["button"],
+                },
+            ],
+
+            modals: [
+                {
+                    id: "modaltest",
+                    layout: {
+                        id: "modalMain",
+                        type: "flex",
+                        children: ["test1", "button2"]
+                    },
+                    schema: "alex-modal"
+                }
+            ]
+        }
+    },
+    render: ({schema}) => {
+        const runtime =
+            createRuntime();
+
+        runtime.events.on(
+            "lamp.toggle",
+            event => {
+                console.log(
+                    "EVENT:",
+                    event,
+                );
+            },
+        );
+
+        runtime.modals.register({
+            type: "alex-modal",
+            component: Modal
+        })
+
+
+        return (
+            <DashboardMainProvider
+                runtime={runtime}
+                schema={schema}
+            >
+                <Dashboard
+                    schema={schema}
+                />
+            </DashboardMainProvider>
+        );
+    },
 };

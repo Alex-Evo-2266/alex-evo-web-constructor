@@ -1,25 +1,76 @@
+import { ModalTemplate, ModalTemplateId, OpenModalOptions } from "../../types/modal"
+
 export class ModalManager {
-    private modalId?: string
+    private templates = new Map<string, ModalTemplate>()
 
-    private context?: unknown
+    private modals: {[key: ModalTemplateId]:OpenModalOptions} = {}
+    private modalIdStack: ModalTemplateId[] = []
 
-    open(
-        modalId: string,
-        context?: unknown,
-    ) {
-        this.modalId = modalId
-        this.context = context
+    private subscribers = new Set<() => void>()
+    
+    register(modal: ModalTemplate) {
+        this.templates.set(modal.type, modal);
+    }
+
+    addModal(modal: OpenModalOptions) {
+        this.modals[modal.id] = modal
+        console.log(modal,  this.modals)
+
+        this.notify()
+    }
+
+    get(type: string) {
+        return this.templates.get(type);
+    }
+
+    open(id: ModalTemplateId) {
+        this.modalIdStack.push(id)
+
+        this.notify()
     }
 
     close() {
-        this.modalId = undefined
-        this.context = undefined
+        this.modalIdStack.pop()
+
+        this.notify()
     }
 
-    getCurrentModal() {
-        return {
-            modalId: this.modalId,
-            context: this.context,
+    getCurrent() {
+        const curIndex = this.modalIdStack.length - 1
+        if(curIndex < 0){
+            return undefined
         }
+        const configId = this.modalIdStack[curIndex]
+        return this.modals[configId]
+    }
+
+    getTemplate() {
+        const curIndex = this.modalIdStack.length - 1
+        if(curIndex < 0){
+            return undefined
+        }
+        const configId = this.modalIdStack[curIndex]
+        const config = this.modals[configId]
+        return this.templates.get(config.schema)
+    }
+
+    subscribe(
+        callback: () => void,
+    ) {
+        this.subscribers.add(
+            callback,
+        )
+
+        return () => {
+            this.subscribers.delete(
+                callback,
+            )
+        }
+    }
+
+    private notify() {
+        this.subscribers.forEach(
+            callback => callback(),
+        )
     }
 }

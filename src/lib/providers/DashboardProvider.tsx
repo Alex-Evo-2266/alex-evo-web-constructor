@@ -4,6 +4,7 @@ import { EventBus } from "../core/events/EventBus";
 import { DataStore } from "../core/data/DataStore";
 import { ModalManager } from "../core/modal/ModalManager";
 import { BlockStore } from "../core/renderer/BlockStore";
+import { Modal } from "../core/modal/Modal";
 
 export interface DashboardRuntime {
     registry: WidgetRegistry
@@ -28,6 +29,7 @@ export function DashboardProvider({
     return (
         <DashboardContext.Provider value={runtime}>
             {children}
+            <Modal/>
         </DashboardContext.Provider>
     );
 }
