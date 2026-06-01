@@ -1,6 +1,7 @@
 import { DataStore } from "../core/data/DataStore"
 import { EventBus } from "../core/events/EventBus"
 import { ModalManager } from "../core/modal/ModalManager"
+import { LayoutRegistry } from "../core/registry/layoutRegistry"
 import { WidgetRegistry } from "../core/registry/WidgetRegistry"
 import { BlockStore } from "../core/renderer/BlockStore"
 import { DashboardSchema } from "../types/schema"
@@ -8,6 +9,7 @@ import { DashboardProvider, DashboardRuntime } from "./DashboardProvider"
 
 export interface DashboardServices {
     registry: WidgetRegistry
+    layouts: LayoutRegistry
     events?: EventBus
     modals: ModalManager    
     store?: DataStore
@@ -38,6 +40,7 @@ export const DashboardMainProvider = ({children, schema, runtime}:Props) => {
         events,
         registry: runtime.registry,
         modals: runtime.modals,
+        layouts: runtime.layouts
 
     }
 

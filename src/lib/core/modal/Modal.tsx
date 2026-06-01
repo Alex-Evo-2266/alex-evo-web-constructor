@@ -1,5 +1,6 @@
 import { useModal } from "../../hooks/useModal";
 import { useDashboard } from "../../providers/DashboardProvider";
+import { Layout } from "../layout/Layout";
 
 export function Modal() {
 
@@ -16,6 +17,8 @@ export function Modal() {
     const Component = template.component
 
     return (
-        <Component close={modals.close.bind(modals)} optional={optional}/>
+        <Component close={modals.close.bind(modals)} optional={optional}>
+            <Layout rootWigets={optional.rootWidgets} type={optional.layout}/>
+        </Component>
     );
 }

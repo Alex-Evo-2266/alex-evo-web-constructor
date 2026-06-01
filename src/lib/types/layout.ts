@@ -1,8 +1,9 @@
 import { NodeId } from "./schema";
 
+export type LayoutSchemaID = string
 
 export interface LayoutSchema {
-    id: string;
+    id: LayoutSchemaID;
     type: "grid" | "flex";
     children: NodeId[];
 }

@@ -1,7 +1,7 @@
-
 import { Typography } from "alex-evo-sh-ui-kit"
-import { WidgetSchema } from "../types/schema"
-import { useResolvedData } from "../hooks/useResolvedData"
+import { useResolvedData } from "../../lib/hooks/useResolvedData"
+import { WidgetSchema } from "../../lib/types/schema"
+
 
 export function TextWidget({
     widget,

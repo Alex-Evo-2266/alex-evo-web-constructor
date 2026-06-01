@@ -1,6 +1,6 @@
 import { ContentBox } from "alex-evo-sh-ui-kit";
-import { WidgetRenderer } from "../core/renderer/WidgetRenderer";
-import { WidgetSchema } from "../types/schema";
+import { WidgetSchema } from "../../lib/types/schema";
+import { WidgetRenderer } from "../../lib/core/renderer/WidgetRenderer";
 
 export function ContainerWidget({
     widget,

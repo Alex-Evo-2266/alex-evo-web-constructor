@@ -1,4 +1,5 @@
-import { LayoutSchema } from "./layout"
+import { LayoutSchemaID } from "./layout"
+import { NodeId } from "./schema"
 
 export type ModalTemplateId = string
 
@@ -8,7 +9,7 @@ export type ModalTemplate = {
     component: React.ComponentType<any>
 }
 
-export type ModalProps = { optional: OpenModalOptions, close: ()=>void }
+export type ModalProps = { optional: OpenModalOptions, close: ()=>void, children: React.ReactNode }
 
 export interface OpenModalOptions {
     id: string
@@ -23,7 +24,8 @@ export interface OpenModalOptions {
     x?: number
     y?: number
 
-    layout: LayoutSchema
+    layout: LayoutSchemaID
+    rootWidgets: NodeId[]
 
     // widgets: Blocks
 }

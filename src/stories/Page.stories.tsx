@@ -1,15 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { WidgetRegistry } from "../lib/core/registry/WidgetRegistry";
-import { TextWidget } from "../lib/widgets/text";
-import { ButtonWidget } from "../lib/widgets/button";
 import { DataStore } from "../lib/core/data/DataStore";
 import { EventBus } from "../lib/core/events/EventBus";
 import { ModalManager } from "../lib/core/modal/ModalManager";
 import { Dashboard } from "../lib/Dashboard";
-import { ContainerWidget } from "../lib/widgets/baseContainer";
-import { Modal } from "../lib/widgets/Modal";
 import { DashboardSchema } from "../lib/types/schema";
 import { DashboardMainProvider } from "../lib/providers/DashboardMainProvider";
+import { TextWidget } from "../blocks/widgets/text";
+import { ButtonWidget } from "../blocks/widgets/button";
+import { ContainerWidget } from "../blocks/widgets/baseContainer";
+import { LayoutRegistry } from "../lib/core/registry/layoutRegistry";
+import { FlexLayout } from "../blocks/layouts/Flex";
+import { Modal } from "../blocks/modals/Modal";
 
 
 function createRuntime() {
@@ -29,6 +31,13 @@ function createRuntime() {
         type: "container",
         component: ContainerWidget,
     });
+
+    const layouts = new LayoutRegistry()
+
+    layouts.register({
+        type: "flex",
+        component: FlexLayout
+    })
 
     const store = new DataStore();
     const events = new EventBus();
@@ -53,7 +62,8 @@ function createRuntime() {
         registry,
         store,
         events,
-        modals
+        modals,
+        layouts
     };
 }
 
@@ -109,15 +119,8 @@ export const SimpleCard: Story = {
                         },
                     }
                 },
-
-                layouts: [
-                    {
-                        id: "main",
-                        type: "flex",
-
-                        children: ["card"],
-                    },
-                ],
+                layout: "flex",
+                rootWidgets: ["card"]
             }}
         />
     ),
@@ -153,15 +156,8 @@ export const NestedContainers: Story = {
                         },
                     }
                 },
-
-                layouts: [
-                    {
-                        id: "main",
-                        type: "flex",
-
-                        children: ["outer"],
-                    },
-                ],
+                layout: "flex",
+                rootWidgets: ["outer"]
             }}
         />
     ),
@@ -198,15 +194,8 @@ export const EventDemo: Story = {
                     ],
                 }
             },
-
-            layouts: [
-                {
-                    id: "main",
-                    type: "flex",
-
-                    children: ["button"],
-                },
-            ],
+            layout: "flex",
+            rootWidgets: ["button"]
         }
     },
     render: ({schema}) => {
@@ -292,15 +281,8 @@ export const SetDataAction: Story = {
                         },
                     }
                 },
-
-                layouts: [
-                    {
-                        id: "main",
-                        type: "flex",
-
-                        children: ["button", "state", "test1"],
-                    },
-                ],
+                layout: "flex",
+                rootWidgets: ["button", "state", "test1"]
             }}
         />
     ),
@@ -315,9 +297,8 @@ export const ModalDemo: Story = {
                     id: "button",
                     type: "button",
 
-                    props: {
-                        label:
-                            "Toggle Lamp",
+                    data: {
+                        label: "Toggle Lamp"
                     },
 
                     actions: [
@@ -358,27 +339,25 @@ export const ModalDemo: Story = {
                     data:{
                         text: { expression: "n * 4" },
                     },
+                },
+                test2:  {
+                    id: "test2",
+                    type: "text",
+
+                    data:{
+                        text: "test text",
+                    },
                 }
             },
 
-
-            layouts: [
-                {
-                    id: "main",
-                    type: "flex",
-
-                    children: ["button"],
-                },
-            ],
+            layout: "flex",
+            rootWidgets: ["button", "test2"],
 
             modals: [
                 {
                     id: "modaltest",
-                    layout: {
-                        id: "modalMain",
-                        type: "flex",
-                        children: ["test1", "button2"]
-                    },
+                    rootWidgets:["test1", "button2"],
+                    layout: "flex",
                     schema: "alex-modal"
                 }
             ]

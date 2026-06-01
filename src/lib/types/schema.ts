@@ -1,6 +1,6 @@
 import { ActionSchema } from "./actions";
 import { DataNode } from "./dataStore";
-import { LayoutSchema } from "./layout";
+import { LayoutSchemaID } from "./layout";
 import { OpenModalOptions } from "./modal";
 
 export type NodeId = string
@@ -10,7 +10,8 @@ export type Blocks = {[key: NodeId]: WidgetSchema}
 export interface DashboardSchema {
     version: string;
     blocks: Blocks;
-    layouts: LayoutSchema[];
+    rootWidgets: NodeId[]
+    layout: LayoutSchemaID;
     modals?: OpenModalOptions[];
 }
 

@@ -5,9 +5,11 @@ import { DataStore } from "../core/data/DataStore";
 import { ModalManager } from "../core/modal/ModalManager";
 import { BlockStore } from "../core/renderer/BlockStore";
 import { Modal } from "../core/modal/Modal";
+import { LayoutRegistry } from "../core/registry/layoutRegistry";
 
 export interface DashboardRuntime {
     registry: WidgetRegistry
+    layouts: LayoutRegistry
     store: DataStore
     events: EventBus
     modals: ModalManager
@@ -55,4 +57,14 @@ export function useRegistry() {
     }
 
     return ctx.registry;
+}
+
+export function useLayout() {
+    const ctx = useDashboard();
+
+    if (!ctx || !ctx.layouts) {
+        throw new Error("DashboardProvider missing");
+    }
+
+    return ctx.layouts;
 }
