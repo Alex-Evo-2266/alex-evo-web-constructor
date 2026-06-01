@@ -1,5 +1,5 @@
 import { ContentBox } from "alex-evo-sh-ui-kit";
-import { WidgetSchema } from "../../lib/types/schema";
+import { NodeId, WidgetSchema } from "../../lib/types/schema";
 import { WidgetRenderer } from "../../lib/core/renderer/WidgetRenderer";
 
 export function ContainerWidget({
@@ -7,10 +7,10 @@ export function ContainerWidget({
 }: { widget: WidgetSchema<{label: string}>}) {
     return (
         <ContentBox border label={widget.props?.label ?? ""} collapsible>
-            {widget.children?.map((child: any) => (
+            {widget.children?.map((childId: NodeId) => (
                 <WidgetRenderer
-                    key={child}
-                    widget={child}
+                    key={childId}
+                    widget={childId}
                 />
             ))}
         </ContentBox>
