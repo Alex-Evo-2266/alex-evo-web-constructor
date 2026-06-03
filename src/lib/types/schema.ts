@@ -27,6 +27,9 @@ export interface WidgetSchema<T=Record<string, unknown>> {
 
     data?: Record<string, DataNode>;
 
+    html?: string
+    css?: string
+
     layout?: {
         x?: number;
         y?: number;

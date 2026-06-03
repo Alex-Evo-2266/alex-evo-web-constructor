@@ -4,6 +4,7 @@ import { ModalManager } from "../core/modal/ModalManager"
 import { LayoutRegistry } from "../core/registry/layoutRegistry"
 import { WidgetRegistry } from "../core/registry/WidgetRegistry"
 import { BlockStore } from "../core/renderer/BlockStore"
+import { HtmlWidget } from "../core/renderer/CastomWidget"
 import { DashboardSchema } from "../types/schema"
 import { DashboardProvider, DashboardRuntime } from "./DashboardProvider"
 
@@ -33,6 +34,8 @@ export const DashboardMainProvider = ({children, schema, runtime}:Props) => {
             runtime.modals.addModal(data)
         })
     }
+
+    runtime.registry.register({type:"castom", component:HtmlWidget})
 
     const runtimeService:DashboardRuntime = {
         blocks: new BlockStore(schema.blocks),

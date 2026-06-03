@@ -8,6 +8,9 @@ import { ContainerWidget } from "../blocks/widgets/baseContainer";
 import { FlexLayout } from "../blocks/layouts/Flex";
 import { Modal } from "../blocks/modals/Modal";
 import { DataStore, EventBus, LayoutRegistry, ModalManager, WidgetRegistry } from "../lib";
+import { CardWidget } from "../blocks/widgets/Card";
+import { PanelWidget } from "../blocks/widgets/Panel";
+import { SmartDeviceWidget } from "../blocks/widgets/SmartDeviceWidget";
 
 
 function createRuntime() {
@@ -26,6 +29,21 @@ function createRuntime() {
     registry.register({
         type: "container",
         component: ContainerWidget,
+    });
+
+    registry.register({
+        type: "card",
+        component: CardWidget,
+    });
+
+    registry.register({
+        type: "panel",
+        component: PanelWidget,
+    });
+
+    registry.register({
+        type: "SmartDeviceWidget",
+        component: SmartDeviceWidget,
     });
 
     const layouts = new LayoutRegistry()
@@ -372,6 +390,272 @@ export const ModalDemo: Story = {
                 );
             },
         );
+
+        runtime.modals.register({
+            type: "alex-modal",
+            component: Modal
+        })
+
+
+        return (
+            <DashboardMainProvider
+                runtime={runtime}
+                schema={schema}
+            >
+                <Dashboard
+                    schema={schema}
+                />
+            </DashboardMainProvider>
+        );
+    },
+};
+
+export const Demo: Story = {
+    args: {
+        schema: {
+            version:"1.0.0",
+            blocks: {
+                button: {
+                    id: "button",
+                    type: "button",
+
+                    data: {
+                        label: "Toggle Lamp"
+                    },
+
+                    actions: [
+                        {
+                            type:
+                                "open_modal",
+
+                            modalId: "modaltest"
+
+                        },
+                    ],
+                },
+                button2: {
+                    id: "button2",
+                    type: "button",
+
+                    props: {
+                        label:
+                            "Turn ON",
+                    },
+                    actions: [
+                        {
+                            type:
+                                "set_data",
+
+                            path:
+                                "n",
+
+                            value:
+                                "10",
+                        }
+                    ],
+                },
+                test1:  {
+                    id: "test1",
+                    type: "text",
+
+                    data:{
+                        text: { expression: "n * 4" },
+                    },
+                },
+                test2:  {
+                    id: "test2",
+                    type: "text",
+
+                    data:{
+                        text: "test text",
+                    },
+                },
+                test3: {
+                    id: "test3",
+                    type: "SmartDeviceWidget",
+                    data: {
+                        state: { binding: "lamp.state" },
+                        value: { binding: "temperature" }
+                    },
+                    actions:[
+                        { type: "emit", event: "lamp.toggle" }
+                    ]
+                }
+            },
+
+            layout: "flex",
+            rootWidgets: ["button", "test2", "test3"],
+
+            modals: [
+                {
+                    id: "modaltest",
+                    rootWidgets:["test1", "button2"],
+                    layout: "flex",
+                    schema: "alex-modal"
+                }
+            ]
+        }
+    },
+    render: ({schema}) => {
+        const runtime =
+            createRuntime();
+
+        runtime.events.on(
+            "lamp.toggle",
+            event => {
+                console.log(
+                    "EVENT:",
+                    event,
+                );
+                const prev = runtime.store.get("lamp.state")
+                if(prev ===  "ON")
+                    runtime.store.set("lamp.state", "OFF")
+                else
+                    runtime.store.set("lamp.state", "ON")
+            },
+        );
+
+        runtime.modals.register({
+            type: "alex-modal",
+            component: Modal
+        })
+
+
+        return (
+            <DashboardMainProvider
+                runtime={runtime}
+                schema={schema}
+            >
+                <Dashboard
+                    schema={schema}
+                />
+            </DashboardMainProvider>
+        );
+    },
+};
+
+export const DemoHTML: Story = {
+    args: {
+        schema: {
+            version:"1.0.0",
+            blocks: {
+                button: {
+                    id: "button",
+                    type: "button",
+
+                    data: {
+                        label: "Toggle Lamp"
+                    },
+
+                    actions: [
+                        {
+                            type:
+                                "open_modal",
+
+                            modalId: "modaltest"
+
+                        },
+                    ],
+                },
+                button2: {
+                    id: "button2",
+                    type: "button",
+
+                    props: {
+                        label:
+                            "Turn ON",
+                    },
+                    actions: [
+                        {
+                            type:
+                                "set_data",
+
+                            path:
+                                "n",
+
+                            value:
+                                "10",
+                        }
+                    ],
+                },
+                test1:  {
+                    id: "test1",
+                    type: "text",
+
+                    data:{
+                        text: { expression: "n * 4" },
+                    },
+                },
+                test2:  {
+                    id: "test2",
+                    type: "text",
+
+                    data:{
+                        text: "test text",
+                    },
+                },
+                test3: {
+                    id: "test3",
+                    type: "SmartDeviceWidget",
+                    data: {
+                        state: { binding: "lamp.state" },
+                        value: { binding: "temperature" }
+                    },
+                    actions:[
+                        { type: "emit", event: "lamp.toggle" }
+                    ]
+                },
+                testhtml1:{
+                    id: "testhtml1",
+                    type: "castom",
+                    html: `<div class="testclass" action-data="test-event"></div>`,
+                    css:`.testclass{
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    border-radius: 10px;
+}`
+                }
+            },
+
+            layout: "flex",
+            rootWidgets: ["button", "test2", "test3", "testhtml1"],
+
+            modals: [
+                {
+                    id: "modaltest",
+                    rootWidgets:["test1", "button2"],
+                    layout: "flex",
+                    schema: "alex-modal"
+                }
+            ]
+        }
+    },
+    render: ({schema}) => {
+        const runtime =
+            createRuntime();
+
+        runtime.events.on(
+            "lamp.toggle",
+            event => {
+                console.log(
+                    "EVENT:",
+                    event,
+                );
+                const prev = runtime.store.get("lamp.state")
+                if(prev ===  "ON")
+                    runtime.store.set("lamp.state", "OFF")
+                else
+                    runtime.store.set("lamp.state", "ON")
+            },
+        );
+
+        runtime.events.on(
+            "test-event",
+            event => {
+                console.log("testevent", event)
+            }
+        )
 
         runtime.modals.register({
             type: "alex-modal",
