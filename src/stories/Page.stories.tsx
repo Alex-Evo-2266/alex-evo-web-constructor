@@ -608,14 +608,15 @@ export const DemoHTML: Story = {
                 testhtml1:{
                     id: "testhtml1",
                     type: "castom",
-                    html: `<div class="testclass" action-data="test-event"></div>`,
+                    html: `<div class="testclass" action-data="test-event">{{text}}</div>`,
                     css:`.testclass{
     width: 100px;
     height: 100px;
     background-color: red;
     border-radius: 10px;
-}`
-                }
+}`,
+                    data: {text: { expression: "n * 4" }}
+                },
             },
 
             layout: "flex",

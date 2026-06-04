@@ -1,4 +1,4 @@
-import { useMemo } from "react"
+import { useMemo, useRef } from "react"
 import { useSyncExternalStore } from "react"
 import { useDashboard } from "../providers/DashboardProvider"
 import { DataResolver, ResolveResult } from "../core/data/resolver"
@@ -39,6 +39,7 @@ export function useResolvedData(node: any) {
 
 export function useResolvedDataMany(datas: Record<string, DataNode> | undefined) {
     const { store } = useDashboard()
+    const snapshotRef = useRef<{[key:string]:any}|undefined>(undefined)
 
     // 1. resolver всегда создаётся одинаково
     const resolver = useMemo(() => {
@@ -72,9 +73,26 @@ export function useResolvedDataMany(datas: Record<string, DataNode> | undefined)
             return store.subscribeMany(Array.from(deps), cb)
         },
         () => {
-            const data = resolv()
-            return data && Object.fromEntries(data.map(item=>[item[0],item[1].value]))
-        },
+        const data = resolv()
+
+        const next =
+            data &&
+            Object.fromEntries(
+                data.map(item => [
+                    item[0],
+                    item[1].value,
+                ]),
+            )
+
+        if (
+            JSON.stringify(snapshotRef.current) !==
+            JSON.stringify(next)
+        ) {
+            snapshotRef.current = next
+        }
+
+        return snapshotRef.current
+    },
         () => undefined
     )
 }
